@@ -25,7 +25,7 @@ public class CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    public List<Category> categories(){
+    public List<Category> findAll(){
         return categoryRepository.findAll();
     }
 

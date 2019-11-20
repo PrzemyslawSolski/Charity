@@ -25,7 +25,7 @@ public class InstitutionService {
         return institutionRepository.getOne(id);
     }
 
-    public List<Institution> institutions(){
+    public List<Institution> findAll(){
         return institutionRepository.findAll();
     }
 

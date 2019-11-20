@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 @Transactional
 public class CategoryService {
+    
     private final CategoryRepository categoryRepository;
 
     @Autowired

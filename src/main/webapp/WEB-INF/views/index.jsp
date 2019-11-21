@@ -116,7 +116,7 @@
 
                 <div class="col">
                     <div class="title">${institution.name}</div>
-                    <div class="subtitle">${institution.description}</div>
+                    <div class="subtitle">Cel i misja: ${institution.description}</div>
                 </div>
 
                 <c:if test="${counter.count % 2 == 0}">

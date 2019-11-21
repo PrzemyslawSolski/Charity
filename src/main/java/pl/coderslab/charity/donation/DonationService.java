@@ -18,6 +18,11 @@ public class DonationService {
         this.donationRepository = donationRepository;
     }
 
+    public long getTotalQuantity(){
+        return donationRepository.getTotalQuantity();
+    }
+
+
     public void save(Donation donation){
         donationRepository.save(donation);
     }

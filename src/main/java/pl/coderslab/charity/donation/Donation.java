@@ -7,6 +7,7 @@ import pl.coderslab.charity.institution.Institution;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,9 +18,12 @@ public class Donation {
     private long id;
     private int quantity;
     @ManyToMany
-    @JoinTable(name = "donation_categories")
-    private List<Category> categories;
+    @JoinTable(name = "donation_categories",
+            joinColumns = @JoinColumn(name = "donation_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories = new ArrayList<>();
     @ManyToOne
+//    @JoinColumn(name = "institution_id")
     private Institution institution;
     private String street;
     private String city;

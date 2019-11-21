@@ -30,6 +30,7 @@ public class CategoryService {
     }
 
     public void deleteById(long id){
+        categoryRepository.deleteCategoryFromJoinTable(id);
         categoryRepository.deleteById(id);
     }
 

@@ -1,7 +1,5 @@
 package pl.coderslab.charity.category;
 
-import pl.coderslab.charity.donation.Donation;
-
 import javax.persistence.*;
 
 @Entity

@@ -24,6 +24,7 @@ public class HomeController {
     public String homeAction(Model model){
         model.addAttribute("institutions", institutionService.findAll());
         model.addAttribute("quantity", donationService.getTotalQuantity());
+        model.addAttribute("donated", donationService.getNumberOfDonatedInstitutions());
         return "index";
     }
 }

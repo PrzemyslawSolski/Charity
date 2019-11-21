@@ -22,6 +22,9 @@ public class DonationService {
         return donationRepository.getTotalQuantity();
     }
 
+    public long getNumberOfDonatedInstitutions(){
+        return donationRepository.getDonatedInstitutions().size();
+    }
 
     public void save(Donation donation){
         donationRepository.save(donation);

@@ -16,7 +16,7 @@
       <nav class="container container--70">
         <ul class="nav--actions">
           <li class="logged-user">
-            Witaj Agataaa
+            Witaj Agata
             <ul class="dropdown">
               <li><a href="#">Profil</a></li>
               <li><a href="#">Ustawienia</a></li>

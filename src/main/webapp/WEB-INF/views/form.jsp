@@ -76,6 +76,20 @@
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
 
+                <c:forEach items="${categories}" var="category">
+                    <div class="form-group form-group--checkbox">
+                        <label>
+                            <input/>
+<%--                            tu zmienić--%>
+                            <span class="checkbox"></span>
+                            <span class="description"
+                            >${category.name}</span
+                            >
+                        </label>
+                    </div>
+
+                </c:forEach>
+
                 <div class="form-group form-group--checkbox">
                     <label>
                         <input

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -79,7 +80,13 @@
                 <c:forEach items="${categories}" var="category">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input/>
+                            <input
+                                    type="checkbox"
+                                    name="categories"
+                                    value="test"
+                            />
+<%--                            form przenieść do góry, bo mają być checkboxes--%>
+<%--                            <form:checkboxes items="" path=""--%>
 <%--                            tu zmienić--%>
                             <span class="checkbox"></span>
                             <span class="description"

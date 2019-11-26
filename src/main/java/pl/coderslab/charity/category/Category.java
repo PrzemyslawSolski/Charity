@@ -10,7 +10,7 @@ public class Category {
     private long id;
     private String name;
     @Transient
-    private boolean chosen;
+    private boolean chosen = false;
 //    @ManyToMany(mappedBy = "categories")
 //    private List<Donation> donations = new ArrayList<>();
 
@@ -28,6 +28,18 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isChosen() {
+        return chosen;
+    }
+
+    public boolean getChosen() {
+        return chosen;
+    }
+
+    public void setChosen(boolean chosen) {
+        this.chosen = chosen;
     }
 
 //    public List<Donation> getDonations() {

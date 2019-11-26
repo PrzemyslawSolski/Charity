@@ -72,13 +72,6 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form:form method="post" modelAttribute="categories">
-            <c:forEach items="${categories}" var="category">
-<%--                <form:checkbox path="${category.chosen}"></form:checkbox>--%>
-<form:label path="${category.name}"></form:label>
-            </c:forEach>
-        </form:form>
-
         <form action="form-confirmation.html" method="post">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
@@ -92,9 +85,9 @@
                                     name="categories"
                                     value="test"
                             />
-                                <%--                            form przenieść do góry, bo mają być checkboxes--%>
-                                <%--                            <form:checkboxes items="" path=""--%>
-                                <%--                            tu zmienić--%>
+<%--                            form przenieść do góry, bo mają być checkboxes--%>
+<%--                            <form:checkboxes items="" path=""--%>
+<%--                            tu zmienić--%>
                             <span class="checkbox"></span>
                             <span class="description"
                             >${category.name}</span

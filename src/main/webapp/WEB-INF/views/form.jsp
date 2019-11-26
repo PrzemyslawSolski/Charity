@@ -72,37 +72,28 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form:form method="post" modelAttribute="categories">
-            <c:forEach items="${categories}" var="category">
-<%--                <form:checkbox path="${category.chosen}"></form:checkbox>--%>
-<form:label path="${category.name}"></form:label>
-            </c:forEach>
-        </form:form>
 
-        <form action="form-confirmation.html" method="post">
+        <%--        <form action="form-confirmation.html" method="post">--%>
+        <form:form method="post" modelAttribute="categoryContainer">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
 
-                <c:forEach items="${categories}" var="category">
+                <c:forEach items="${categoryContainer.categories}" var="category" varStatus="tagStatus">
                     <div class="form-group form-group--checkbox">
+<%--                        <div>--%>
                         <label>
-                            <input
-                                    type="checkbox"
-                                    name="categories"
-                                    value="test"
-                            />
-                                <%--                            form przenieść do góry, bo mają być checkboxes--%>
-                                <%--                            <form:checkboxes items="" path=""--%>
-                                <%--                            tu zmienić--%>
+<%--                            <form:hidden path="categories[${tagStatus.index}].id"/>--%>
+                                <%--<form:checkbox path="${category.chosen}"></form:checkbox>--%>
+                            <form:checkbox name="categories" path="categories[${tagStatus.index}].chosen" value="false"/>
                             <span class="checkbox"></span>
-                            <span class="description"
-                            >${category.name}</span
-                            >
+                            <span class="description">${category.name}</span>
+<%--                            <form:label path="categories[${tagStatus.index}].name"--%>
+<%--                                        value="${category.name}">${category.name}</form:label>--%>
                         </label>
                     </div>
-
                 </c:forEach>
+
 
                 <div class="form-group form-group--checkbox">
                     <label>
@@ -318,7 +309,8 @@
                     <button type="submit" class="btn">Potwierdzam</button>
                 </div>
             </div>
-        </form>
+        </form:form>
+        <%--        </form>--%>
     </div>
 </section>
 

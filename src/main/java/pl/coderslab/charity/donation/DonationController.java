@@ -7,22 +7,23 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.coderslab.charity.category.Category;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
+import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class DonationController {
     private final CategoryService categoryService;
     private final DonationService donationService;
+    private final InstitutionService institutionService;
 
-    public DonationController(CategoryService categoryService, DonationService donationService) {
+    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService) {
         this.categoryService = categoryService;
         this.donationService = donationService;
+        this.institutionService = institutionService;
     }
 
     @GetMapping("/donate")
@@ -53,6 +54,18 @@ public class DonationController {
         int quantity = 0;
         model.addAttribute("quantity", quantity);
         return "quantity";
+    }
+
+    @PostMapping("/quantity")
+    public String quantityAction(@RequestParam Long quantity, HttpSession session) {
+        session.setAttribute("quantity", quantity);
+        return "redirect:organization";
+    }
+
+    @GetMapping("/organization")
+    public String organizationAction(Model model){
+        model.addAttribute("organizations", institutionService.findAll());
+        return "organization";
     }
 
 

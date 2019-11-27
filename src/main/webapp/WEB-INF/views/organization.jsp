@@ -70,7 +70,7 @@
     </div>
 
     <div class="form--steps-container">
-        <div class="form--steps-counter">Krok <span>2</span>/4</div>
+        <div class="form--steps-counter">Krok <span>3</span>/4</div>
 <%--TODO wyczyścić wszystkei jsp z komentarzy--%>
 
                 <form action="/quantity" method="post">
@@ -152,27 +152,27 @@
             </div>
 
             <!-- STEP 2 -->
-            <div data-step="2" class="active">
-                <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
+<%--            <div data-step="2">--%>
+<%--                <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>--%>
 
-                <div class="form-group form-group--inline">
-                    <label>
-                        Liczba 60l worków:
-                        <input type="number" name="quantity" step="1" min="1"/>
-<%--                        <form:input path="quantity" type="number" name="quantity" step="1" min="1"/>--%>
-                    </label>
-                </div>
+<%--                <div class="form-group form-group--inline">--%>
+<%--                    <label>--%>
+<%--                        Liczba 60l worków:--%>
+<%--                        <input type="number" name="quantity" step="1" min="1"/>--%>
+<%--&lt;%&ndash;                        <form:input path="quantity" type="number" name="quantity" step="1" min="1"/>&ndash;%&gt;--%>
+<%--                    </label>--%>
+<%--                </div>--%>
 
-                <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="submit" class="btn">Dalej</button>
-<%--                    <input type="submit" class="btn" value="Dalej"></input>--%>
-                </div>
-            </div>
+<%--                <div class="form-group form-group--buttons">--%>
+<%--                    <button type="button" class="btn prev-step">Wstecz</button>--%>
+<%--                    <button type="submit" class="btn">Dalej</button>--%>
+<%--&lt;%&ndash;                    <input type="submit" class="btn" value="Dalej"></input>&ndash;%&gt;--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
 
             <!-- STEP 4 -->
-            <div data-step="3">
+            <div data-step="3" class="active">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
                 <div class="form-group form-group--checkbox">

@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class DonationController {
@@ -57,7 +60,7 @@ public class DonationController {
     }
 
     @PostMapping("/quantity")
-    public String quantityAction(@RequestParam Long quantity, HttpSession session) {
+    public String quantityAction(@RequestParam Integer quantity, HttpSession session) {
         session.setAttribute("quantity", quantity);
         return "redirect:institution";
     }
@@ -68,5 +71,40 @@ public class DonationController {
         return "institution";
     }
 
+    @PostMapping("/institution")
+    public String organizationAction(@RequestParam Long institution, HttpSession session){
+        session.setAttribute("institutionId", institution);
+        return "redirect:address";
+    }
+
+    @GetMapping("/address")
+    public String addressAction(Model model){
+        model.addAttribute("donation", new Donation());
+        return "address";
+    }
+
+    @PostMapping("/address")
+    public String addressAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result){
+        if(result.hasErrors()){
+            return "address";
+        }
+        session.setAttribute("donation", donation);
+        return "redirect:summary";
+    }
+
+    @GetMapping("/summary")
+    public String summaryAction(Model model, HttpSession session){
+        Donation donation = (Donation) session.getAttribute("donation");
+        donation.setQuantity((Integer)session.getAttribute("quantity"));
+        donation.setInstitution(institutionService.getOne((Long)session.getAttribute("institutionId")));
+        List<Category> categories = new ArrayList<>();
+//        long [] categoriesIds =  (long []) session.getAttribute("categoriesIds");
+
+        for (long categoryId : (long []) session.getAttribute("categoriesIds")) {
+            categories.add(categoryService.getOne(categoryId));
+        }
+        donation.setCategories(categories);
+        return "summary";
+    }
 
 }

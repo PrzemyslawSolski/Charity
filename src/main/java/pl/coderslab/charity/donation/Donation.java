@@ -28,6 +28,7 @@ public class Donation {
     private String street;
     private String city;
     private String zipCode;
+    private String phoneNumber;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate pickUpDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
@@ -114,4 +115,11 @@ public class Donation {
         this.pickUpComment = pickUpComment;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

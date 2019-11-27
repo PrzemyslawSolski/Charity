@@ -53,7 +53,7 @@
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>
-            <p data-step="1" class="active">
+            <p data-step="1">
                 Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
                 wiedzieć komu najlepiej je przekazać.
             </p>
@@ -61,8 +61,8 @@
                 Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
                 wiedzieć komu najlepiej je przekazać.
             </p>
-            <p data-step="3">
-                Wybierz jedną, do
+            <p data-step="3" class="active">
+                Wybierz jedną organizację, do
                 której trafi Twoja przesyłka.
             </p>
             <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
@@ -73,7 +73,7 @@
         <div class="form--steps-counter">Krok <span>3</span>/4</div>
 <%--TODO wyczyścić wszystkei jsp z komentarzy--%>
 
-                <form action="/quantity" method="post">
+                <form action="/institution" method="post">
 <%--        <form:form method="post" modelAttribute="quantity">--%>
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1">
@@ -174,6 +174,20 @@
             <!-- STEP 4 -->
             <div data-step="3" class="active">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                <c:forEach items="${institutions}" var="institution">
+                    <div class="form-group form-group--checkbox">
+                        <label>
+                            <input type="radio" name="institution" value="${institution.id}">
+                            <span class="checkbox radio"></span>
+                            <span class="description">
+                  <div class="title">${institution.name}</div>
+                  <div class="subtitle">
+                    Cel i misja: ${institution.description}
+                  </div>
+                </span>
+                        </label>
+                    </div>
+                </c:forEach>
 
                 <div class="form-group form-group--checkbox">
                     <label>
@@ -205,13 +219,13 @@
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                    <button type="submit" class="btn next-step">Dalej</button>
                 </div>
             </div>
 
             <!-- STEP 5 -->
             <div data-step="4">
-                <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
+                <h3>Podaj adres oraz termin odbioru rzeczy przez kuriera:</h3>
 
                 <div class="form-section form-section--columns">
                     <div class="form-section--column">

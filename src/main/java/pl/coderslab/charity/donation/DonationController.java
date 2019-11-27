@@ -59,13 +59,13 @@ public class DonationController {
     @PostMapping("/quantity")
     public String quantityAction(@RequestParam Long quantity, HttpSession session) {
         session.setAttribute("quantity", quantity);
-        return "redirect:organization";
+        return "redirect:institution";
     }
 
-    @GetMapping("/organization")
+    @GetMapping("/institution")
     public String organizationAction(Model model){
-        model.addAttribute("organizations", institutionService.findAll());
-        return "organization";
+        model.addAttribute("institutions", institutionService.findAll());
+        return "institution";
     }
 
 

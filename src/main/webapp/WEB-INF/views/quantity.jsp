@@ -53,16 +53,16 @@
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>
-            <p data-step="1" class="active">
+            <p data-step="1">
                 Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
                 wiedzieć komu najlepiej je przekazać.
             </p>
-            <p data-step="2">
+            <p data-step="2" class="active">
                 Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
                 wiedzieć komu najlepiej je przekazać.
             </p>
             <p data-step="3">
-                Wybierz jedną, do
+                Wybierz jedną organizację, do
                 której trafi Twoja przesyłka.
             </p>
             <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>

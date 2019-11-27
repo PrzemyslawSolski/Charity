@@ -3,7 +3,7 @@ package pl.coderslab.charity.category;
 import java.io.Serializable;
 import java.util.List;
 
-public class CategoryContainer implements Serializable {
+public class CategoryContainer {
     private List<Category> categories;
 
     public List<Category> getCategories() {

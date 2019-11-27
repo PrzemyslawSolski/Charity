@@ -44,15 +44,7 @@ public class DonationController {
         if (result.hasErrors()) {
             return "categories";
         }
-
-//        List<Category> categories = categoryContainer.getCategories();
-/*        CategoryContainer chosenCategories = new CategoryContainer();
-        chosenCategories.setCategories(categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList()));
-        session.setAttribute("categoriesCnt", chosenCategories);
-        */
-
-        session.setAttribute("categories", categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList()));
-
+        session.setAttribute("categoriesIds", donationService.getSelectedCategoriesIds(categoryContainer));
         return "redirect:quantity";
     }
 

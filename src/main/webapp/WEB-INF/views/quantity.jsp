@@ -73,26 +73,26 @@
         <div class="form--steps-counter">Krok <span>2</span>/4</div>
 
 
-        <%--        <form action="form-confirmation.html" method="post">--%>
-        <form:form method="post" modelAttribute="categoryContainer">
+                <form action="/quantity" method="get">
+<%--        <form:form method="post" modelAttribute="quantity">--%>
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1">
                 <h3>Zaznacz co chcesz oddać:</h3>
-                <form:errors path="*" element="div" cssClass="error"></form:errors>
+<%--                <form:errors path="*" element="div" cssClass="error"></form:errors>--%>
 
-                <c:forEach items="${categoryContainer.categories}" var="category" varStatus="tagStatus">
-                    <div class="form-group form-group--checkbox">
-                            <%--                        <div>--%>
-                        <label>
-                            <form:hidden path="categories[${tagStatus.index}].id"/>
-                            <form:hidden path="categories[${tagStatus.index}].name"/>
-                            <form:checkbox name="categories" path="categories[${tagStatus.index}].chosen"
-                                           value="false"/>
-                            <span class="checkbox"></span>
-                            <span class="description">${category.name}</span>
-                        </label>
-                    </div>
-                </c:forEach>
+<%--                <c:forEach items="${categoryContainer.categories}" var="category" varStatus="tagStatus">--%>
+<%--                    <div class="form-group form-group--checkbox">--%>
+<%--                            &lt;%&ndash;                        <div>&ndash;%&gt;--%>
+<%--                        <label>--%>
+<%--                            <form:hidden path="categories[${tagStatus.index}].id"/>--%>
+<%--                            <form:hidden path="categories[${tagStatus.index}].name"/>--%>
+<%--                            <form:checkbox name="categories" path="categories[${tagStatus.index}].chosen"--%>
+<%--                                           value="false"/>--%>
+<%--                            <span class="checkbox"></span>--%>
+<%--                            <span class="description">${category.name}</span>--%>
+<%--                        </label>--%>
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
 
 
                     <%--                <div class="form-group form-group--checkbox">--%>
@@ -158,13 +158,15 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <input type="number" name="bags" step="1" min="1"/>
+                        <input type="number" name="quantity" step="1" min="1"/>
+<%--                        <form:input path="quantity" type="number" name="quantity" step="1" min="1"/>--%>
                     </label>
                 </div>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                    <button type="submit" class="btn">Dalej</button>
+<%--                    <input type="submit" class="btn" value="Dalej"></input>--%>
                 </div>
             </div>
 
@@ -310,8 +312,8 @@
                     <button type="submit" class="btn">Potwierdzam</button>
                 </div>
             </div>
-        </form:form>
-        <%--        </form>--%>
+<%--        </form:form>--%>
+                </form>
     </div>
 </section>
 

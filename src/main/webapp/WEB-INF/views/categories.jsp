@@ -146,8 +146,8 @@
                     <%--                </div>--%>
 
                 <div class="form-group form-group--buttons">
-                        <%--                                            <button type="button" class="btn next-step">Dalej</button>--%>
-                    <input type="submit" value="Dalej" class="btn">
+                    <button type="submit" class="btn next-step">Dalej</button>
+                        <%--                    <input type="submit" value="Dalej" class="btn">--%>
                 </div>
             </div>
 

@@ -21,37 +21,50 @@ public class DonationService {
         this.donationRepository = donationRepository;
     }
 
-    public int numberOfSelectedCategories(CategoryContainer categoryContainer){
+    public int numberOfSelectedCategories(CategoryContainer categoryContainer) {
         return categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList()).size();
     }
 
-    public long getTotalQuantity(){
+    public long[] getSelectedCategoriesIds(CategoryContainer categoryContainer) {
+        int noOfSelectedCategories = numberOfSelectedCategories(categoryContainer);
+//        List<Category> categories = categoryContainer.getCategories();
+        long[] selectedCategoriesIds = new long[noOfSelectedCategories];
+        int counter = 0;
+        for (Category category : categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList())) {
+            selectedCategoriesIds[counter] = category.getId();
+            counter++;
+        }
+        return selectedCategoriesIds;
+
+    }
+
+    public long getTotalQuantity() {
         return donationRepository.getTotalQuantity();
     }
 
-    public long getNumberOfDonatedInstitutions(){
+    public long getNumberOfDonatedInstitutions() {
         return donationRepository.getDonatedInstitutions().size();
     }
 
-    public void save(Donation donation){
+    public void save(Donation donation) {
         donationRepository.save(donation);
     }
 
-    public Donation getOne(long id){
+    public Donation getOne(long id) {
         return donationRepository.getOne(id);
     }
 
-    public Donation getOneWithCategories(long id){
+    public Donation getOneWithCategories(long id) {
         Donation donation = getOne(id);
         Hibernate.initialize(donation.getCategories());
         return donation;
     }
 
-    public List<Donation> findAll(){
+    public List<Donation> findAll() {
         return donationRepository.findAll();
     }
 
-    public void deleteById(long id){
+    public void deleteById(long id) {
         donationRepository.deleteById(id);
     }
 

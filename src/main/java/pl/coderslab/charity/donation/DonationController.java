@@ -66,26 +66,26 @@ public class DonationController {
     }
 
     @GetMapping("/institution")
-    public String organizationAction(Model model){
+    public String organizationAction(Model model) {
         model.addAttribute("institutions", institutionService.findAll());
         return "institution";
     }
 
     @PostMapping("/institution")
-    public String organizationAction(@RequestParam Long institution, HttpSession session){
+    public String organizationAction(@RequestParam Long institution, HttpSession session) {
         session.setAttribute("institutionId", institution);
         return "redirect:address";
     }
 
     @GetMapping("/address")
-    public String addressAction(Model model){
+    public String addressAction(Model model) {
         model.addAttribute("donation", new Donation());
         return "address";
     }
 
     @PostMapping("/address")
-    public String addressAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result){
-        if(result.hasErrors()){
+    public String addressAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
+        if (result.hasErrors()) {
             return "address";
         }
         session.setAttribute("donation", donation);
@@ -93,18 +93,27 @@ public class DonationController {
     }
 
     @GetMapping("/summary")
-    public String summaryAction(Model model, HttpSession session){
+    public String summaryAction(Model model, HttpSession session) {
         Donation donation = (Donation) session.getAttribute("donation");
-        donation.setQuantity((Integer)session.getAttribute("quantity"));
-        donation.setInstitution(institutionService.getOne((Long)session.getAttribute("institutionId")));
+        donation.setQuantity((Integer) session.getAttribute("quantity"));
+        donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
         List<Category> categories = new ArrayList<>();
 //        long [] categoriesIds =  (long []) session.getAttribute("categoriesIds");
 
-        for (long categoryId : (long []) session.getAttribute("categoriesIds")) {
+        for (long categoryId : (long[]) session.getAttribute("categoriesIds")) {
             categories.add(categoryService.getOne(categoryId));
         }
         donation.setCategories(categories);
+        model.addAttribute("donation", donation);
         return "summary";
     }
+
+    @PostMapping("/summary")
+    public String summaryAction(Model model, @ModelAttribute Donation donation, BindingResult result) {
+        Donation dd = donation;
+
+        return "redirect:donate";
+    }
+
 
 }

@@ -81,72 +81,72 @@
 
                 <c:forEach items="${categoryContainer.categories}" var="category" varStatus="tagStatus">
                     <div class="form-group form-group--checkbox">
-<%--                        <div>--%>
+                            <%--                        <div>--%>
                         <label>
-<%--                            <form:hidden path="categories[${tagStatus.index}].id"/>--%>
-                                <%--<form:checkbox path="${category.chosen}"></form:checkbox>--%>
-                            <form:checkbox name="categories" path="categories[${tagStatus.index}].chosen" value="false"/>
+                            <form:hidden path="categories[${tagStatus.index}].id"/>
+                            <form:hidden path="categories[${tagStatus.index}].name"/>
+                            <form:checkbox name="categories" path="categories[${tagStatus.index}].chosen"
+                                           value="false"/>
                             <span class="checkbox"></span>
                             <span class="description">${category.name}</span>
-<%--                            <form:label path="categories[${tagStatus.index}].name"--%>
-<%--                                        value="${category.name}">${category.name}</form:label>--%>
                         </label>
                     </div>
                 </c:forEach>
 
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input
-                                type="checkbox"
-                                name="categories"
-                                value="clothes-to-use"
-                        />
-                        <span class="checkbox"></span>
-                        <span class="description"
-                        >ubrania, które nadają się do ponownego użycia</span
-                        >
-                    </label>
-                </div>
+                    <%--                <div class="form-group form-group--checkbox">--%>
+                    <%--                    <label>--%>
+                    <%--                        <input--%>
+                    <%--                                type="checkbox"--%>
+                    <%--                                name="categories"--%>
+                    <%--                                value="clothes-to-use"--%>
+                    <%--                        />--%>
+                    <%--                        <span class="checkbox"></span>--%>
+                    <%--                        <span class="description"--%>
+                    <%--                        >ubrania, które nadają się do ponownego użycia</span--%>
+                    <%--                        >--%>
+                    <%--                    </label>--%>
+                    <%--                </div>--%>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input
-                                type="checkbox"
-                                name="categories"
-                                value="clothes-useless"
-                        />
-                        <span class="checkbox"></span>
-                        <span class="description">ubrania, do wyrzucenia</span>
-                    </label>
-                </div>
+                    <%--                <div class="form-group form-group--checkbox">--%>
+                    <%--                    <label>--%>
+                    <%--                        <input--%>
+                    <%--                                type="checkbox"--%>
+                    <%--                                name="categories"--%>
+                    <%--                                value="clothes-useless"--%>
+                    <%--                        />--%>
+                    <%--                        <span class="checkbox"></span>--%>
+                    <%--                        <span class="description">ubrania, do wyrzucenia</span>--%>
+                    <%--                    </label>--%>
+                    <%--                </div>--%>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="categories" value="toys"/>
-                        <span class="checkbox"></span>
-                        <span class="description">zabawki</span>
-                    </label>
-                </div>
+                    <%--                <div class="form-group form-group--checkbox">--%>
+                    <%--                    <label>--%>
+                    <%--                        <input type="checkbox" name="categories" value="toys"/>--%>
+                    <%--                        <span class="checkbox"></span>--%>
+                    <%--                        <span class="description">zabawki</span>--%>
+                    <%--                    </label>--%>
+                    <%--                </div>--%>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="categories" value="books"/>
-                        <span class="checkbox"></span>
-                        <span class="description">książki</span>
-                    </label>
-                </div>
+                    <%--                <div class="form-group form-group--checkbox">--%>
+                    <%--                    <label>--%>
+                    <%--                        <input type="checkbox" name="categories" value="books"/>--%>
+                    <%--                        <span class="checkbox"></span>--%>
+                    <%--                        <span class="description">książki</span>--%>
+                    <%--                    </label>--%>
+                    <%--                </div>--%>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="categories" value="other"/>
-                        <span class="checkbox"></span>
-                        <span class="description">inne</span>
-                    </label>
-                </div>
+                    <%--                <div class="form-group form-group--checkbox">--%>
+                    <%--                    <label>--%>
+                    <%--                        <input type="checkbox" name="categories" value="other"/>--%>
+                    <%--                        <span class="checkbox"></span>--%>
+                    <%--                        <span class="description">inne</span>--%>
+                    <%--                    </label>--%>
+                    <%--                </div>--%>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn next-step">Dalej</button>
+                        <%--                                            <button type="button" class="btn next-step">Dalej</button>--%>
+                    <input type="submit" value="Dalej" class="btn">
                 </div>
             </div>
 
@@ -316,6 +316,6 @@
 
 <%@ include file="footer.jsp" %>
 
-<script src="<c:url value="resources/js/app.js"/>"></script>
+<%--<script src="<c:url value="resources/js/app.js"/>"></script>--%>
 </body>
 </html>

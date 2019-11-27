@@ -471,6 +471,7 @@ h2:after {
   cursor: pointer;
 }
 
+
 /* line 12, scss/modules/_buttons.scss */
 .btn:hover {
   border-color: #f9c910;

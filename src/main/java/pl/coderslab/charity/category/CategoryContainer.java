@@ -1,8 +1,9 @@
 package pl.coderslab.charity.category;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CategoryContainer {
+public class CategoryContainer implements Serializable {
     private List<Category> categories;
 
     public List<Category> getCategories() {

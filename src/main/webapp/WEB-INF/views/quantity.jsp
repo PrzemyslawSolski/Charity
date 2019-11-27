@@ -76,7 +76,7 @@
         <%--        <form action="form-confirmation.html" method="post">--%>
         <form:form method="post" modelAttribute="categoryContainer">
             <!-- STEP 1: class .active is switching steps -->
-            <div data-step="1" class="active">
+            <div data-step="1">
                 <h3>Zaznacz co chcesz oddać:</h3>
                 <form:errors path="*" element="div" cssClass="error"></form:errors>
 
@@ -152,7 +152,7 @@
             </div>
 
             <!-- STEP 2 -->
-            <div data-step="2">
+            <div data-step="2" class="active">
                 <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
                 <div class="form-group form-group--inline">

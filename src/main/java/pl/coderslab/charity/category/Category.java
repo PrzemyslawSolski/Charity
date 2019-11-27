@@ -1,6 +1,7 @@
 package pl.coderslab.charity.category;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "categories")

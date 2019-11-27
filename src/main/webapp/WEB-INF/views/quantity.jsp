@@ -70,7 +70,7 @@
     </div>
 
     <div class="form--steps-container">
-        <div class="form--steps-counter">Krok <span>1</span>/4</div>
+        <div class="form--steps-counter">Krok <span>2</span>/4</div>
 
 
         <%--        <form action="form-confirmation.html" method="post">--%>

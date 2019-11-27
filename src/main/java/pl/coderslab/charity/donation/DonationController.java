@@ -56,7 +56,12 @@ public class DonationController {
         return "redirect:quantity";
     }
 
+    @GetMapping("/quantity")
+    public String quantityAction(Model model) {
+        int quantity = 0;
+        model.addAttribute("quantity", quantity);
+        return "quantity";
+    }
 
 
-    
 }

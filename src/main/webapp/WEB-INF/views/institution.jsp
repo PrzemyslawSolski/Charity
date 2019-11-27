@@ -73,7 +73,7 @@
         <div class="form--steps-counter">Krok <span>3</span>/4</div>
 <%--TODO wyczyścić wszystkei jsp z komentarzy--%>
 
-                <form action="/institution" method="post">
+        <form action="/institution" method="post">
 <%--        <form:form method="post" modelAttribute="quantity">--%>
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1">
@@ -177,7 +177,7 @@
                 <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="radio" name="institution" value="${institution.id}">
+                            <input type="radio" name="institution" value="${institution.id}" required>
                             <span class="checkbox radio"></span>
                             <span class="description">
                   <div class="title">${institution.name}</div>
@@ -189,33 +189,33 @@
                     </div>
                 </c:forEach>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="radio" name="organization" value="old"/>
-                        <span class="checkbox radio"></span>
-                        <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
-                  </div>
-                </span>
-                    </label>
-                </div>
+<%--                <div class="form-group form-group--checkbox">--%>
+<%--                    <label>--%>
+<%--                        <input type="radio" name="organization" value="old"/>--%>
+<%--                        <span class="checkbox radio"></span>--%>
+<%--                        <span class="description">--%>
+<%--                  <div class="title">Fundacja “Bez domu”</div>--%>
+<%--                  <div class="subtitle">--%>
+<%--                    Cel i misja: Pomoc dla osób nie posiadających miejsca--%>
+<%--                    zamieszkania--%>
+<%--                  </div>--%>
+<%--                </span>--%>
+<%--                    </label>--%>
+<%--                </div>--%>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="radio" name="organization" value="old"/>
-                        <span class="checkbox radio"></span>
-                        <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
-                    </label>
-                </div>
+<%--                <div class="form-group form-group--checkbox">--%>
+<%--                    <label>--%>
+<%--                        <input type="radio" name="organization" value="old"/>--%>
+<%--                        <span class="checkbox radio"></span>--%>
+<%--                        <span class="description">--%>
+<%--                  <div class="title">Fundacja “Dla dzieci"</div>--%>
+<%--                  <div class="subtitle">--%>
+<%--                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji--%>
+<%--                    życiowej.--%>
+<%--                  </div>--%>
+<%--                </span>--%>
+<%--                    </label>--%>
+<%--                </div>--%>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
@@ -327,7 +327,7 @@
                 </div>
             </div>
 <%--        </form:form>--%>
-                </form>
+        </form>
     </div>
 </section>
 

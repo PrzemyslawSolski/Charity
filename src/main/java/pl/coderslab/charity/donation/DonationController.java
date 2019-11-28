@@ -8,7 +8,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
-import pl.coderslab.charity.email.EmailServiceImpl;
+import pl.coderslab.charity.email.Email;
+import pl.coderslab.charity.email.EmailService;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
@@ -18,10 +19,10 @@ public class DonationController {
     private final CategoryService categoryService;
     private final DonationService donationService;
     private final InstitutionService institutionService;
-    private final EmailServiceImpl emailService;
+    private final EmailService emailService;
 
     @Autowired
-    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService, EmailServiceImpl emailService) {
+    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService, EmailService emailService) {
         this.categoryService = categoryService;
         this.donationService = donationService;
         this.institutionService = institutionService;
@@ -93,30 +94,32 @@ public class DonationController {
 
     @GetMapping("/summary")
     public String summaryAction(Model model, HttpSession session) {
-//        Donation donation = (Donation) session.getAttribute("donation");
-//        donation.setQuantity((Integer) session.getAttribute("quantity"));
-//        donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
-//        donation.setCategories(categoryService.getCategoriesFromSession(session));
         model.addAttribute("donation", donationService.collectDonationFromSession(session));
         return "summary";
     }
 
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
-//        donationService.save(donation);
+        donationService.save(donation);
         return "redirect:confirmation";
     }
 
     @GetMapping("/confirmation")
-    public String confirmationAction(){
+    public String confirmationAction() {
         return "form-confirmation";
     }
 
     @GetMapping("/email")
     @ResponseBody
-    public String emailSend(){
+    public String emailSend() {
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "tytuł testowy", "text");
         return "Email sent";
     }
+
+    @ModelAttribute("email")
+    public Email getEmail() {
+        return new Email();
+    }
+
 
 }

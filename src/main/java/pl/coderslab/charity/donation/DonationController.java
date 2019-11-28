@@ -110,11 +110,13 @@ public class DonationController {
 
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
-//        Donation dd = donation;
-//        donation.setCategories(categoryService.getCategoriesFromSession(session));
         donationService.save(donation);
-        return "redirect:donate";
+        return "redirect:confirmation";
     }
 
+    @GetMapping("/confirmation")
+    public String confirmationAction(){
+        return "form-confirmation";
+    }
 
 }

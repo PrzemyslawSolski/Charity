@@ -8,7 +8,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
-import pl.coderslab.charity.email.Email;
 import pl.coderslab.charity.email.EmailService;
 import pl.coderslab.charity.institution.InstitutionService;
 
@@ -116,10 +115,6 @@ public class DonationController {
         return "Email sent";
     }
 
-    @ModelAttribute("email")
-    public Email getEmail() {
-        return new Email();
-    }
 
 
 }

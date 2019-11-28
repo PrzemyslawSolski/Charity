@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryContainer;
+import pl.coderslab.charity.category.CategoryService;
+import pl.coderslab.charity.institution.InstitutionService;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,10 +18,14 @@ import java.util.stream.Collectors;
 public class DonationService {
 
     private final DonationRepository donationRepository;
+    private final InstitutionService institutionService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public DonationService(DonationRepository donationRepository) {
+    public DonationService(DonationRepository donationRepository, InstitutionService institutionService, CategoryService categoryService) {
         this.donationRepository = donationRepository;
+        this.institutionService = institutionService;
+        this.categoryService = categoryService;
     }
 
     public int numberOfSelectedCategories(CategoryContainer categoryContainer) {
@@ -35,7 +42,14 @@ public class DonationService {
             counter++;
         }
         return selectedCategoriesIds;
+    }
 
+    public Donation collectDonationFromSession(HttpSession session){
+        Donation donation = (Donation) session.getAttribute("donation");
+        donation.setQuantity((Integer) session.getAttribute("quantity"));
+        donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
+        donation.setCategories(categoryService.getCategoriesFromSession(session));
+        return donation;
     }
 
     public long getTotalQuantity() {

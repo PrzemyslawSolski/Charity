@@ -94,23 +94,17 @@ public class DonationController {
 
     @GetMapping("/summary")
     public String summaryAction(Model model, HttpSession session) {
-        Donation donation = (Donation) session.getAttribute("donation");
-        donation.setQuantity((Integer) session.getAttribute("quantity"));
-        donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
-//        List<Category> categories = new ArrayList<>();
-////        long [] categoriesIds =  (long []) session.getAttribute("categoriesIds");
-//
-//        for (long categoryId : (long[]) session.getAttribute("categoriesIds")) {
-//            categories.add(categoryService.getOne(categoryId));
-//        }
-        donation.setCategories(categoryService.getCategoriesFromSession(session));
-        model.addAttribute("donation", donation);
+//        Donation donation = (Donation) session.getAttribute("donation");
+//        donation.setQuantity((Integer) session.getAttribute("quantity"));
+//        donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
+//        donation.setCategories(categoryService.getCategoriesFromSession(session));
+        model.addAttribute("donation", donationService.collectDonationFromSession(session));
         return "summary";
     }
 
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
-        donationService.save(donation);
+//        donationService.save(donation);
         return "redirect:confirmation";
     }
 

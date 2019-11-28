@@ -97,21 +97,21 @@ public class DonationController {
         Donation donation = (Donation) session.getAttribute("donation");
         donation.setQuantity((Integer) session.getAttribute("quantity"));
         donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
-        List<Category> categories = new ArrayList<>();
-//        long [] categoriesIds =  (long []) session.getAttribute("categoriesIds");
-
-        for (long categoryId : (long[]) session.getAttribute("categoriesIds")) {
-            categories.add(categoryService.getOne(categoryId));
-        }
-        donation.setCategories(categories);
+//        List<Category> categories = new ArrayList<>();
+////        long [] categoriesIds =  (long []) session.getAttribute("categoriesIds");
+//
+//        for (long categoryId : (long[]) session.getAttribute("categoriesIds")) {
+//            categories.add(categoryService.getOne(categoryId));
+//        }
+        donation.setCategories(categoryService.getCategoriesFromSession(session));
         model.addAttribute("donation", donation);
         return "summary";
     }
 
     @PostMapping("/summary")
-    public String summaryAction(Model model, @ModelAttribute Donation donation, BindingResult result) {
-        Donation dd = donation;
-
+    public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
+//        Donation dd = donation;
+//        donation.setCategories(categoryService.getCategoriesFromSession(session));
         return "redirect:donate";
     }
 

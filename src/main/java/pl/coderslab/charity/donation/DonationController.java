@@ -1,32 +1,31 @@
 package pl.coderslab.charity.donation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.charity.category.Category;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
+import pl.coderslab.charity.email.EmailServiceImpl;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class DonationController {
     private final CategoryService categoryService;
     private final DonationService donationService;
     private final InstitutionService institutionService;
+    private final EmailServiceImpl emailService;
 
-    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService) {
+    @Autowired
+    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService, EmailServiceImpl emailService) {
         this.categoryService = categoryService;
         this.donationService = donationService;
         this.institutionService = institutionService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/donate")
@@ -111,6 +110,13 @@ public class DonationController {
     @GetMapping("/confirmation")
     public String confirmationAction(){
         return "form-confirmation";
+    }
+
+    @GetMapping("/email")
+    @ResponseBody
+    public String emailSend(){
+        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "tytuł testowy", "text");
+        return "Email sent";
     }
 
 }

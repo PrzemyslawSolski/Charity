@@ -13,41 +13,41 @@
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-<header class="header--form-page">
-    <nav class="container container--70">
+<%--<header class="header--form-page">--%>
+<%--    <nav class="container container--70">--%>
 
-        <%@ include file="user_menu.jsp" %>
+<%--&lt;%&ndash;        <%@ include file="user_menu.jsp" %>&ndash;%&gt;--%>
 
-        <%@ include file="header.jsp" %>
-    </nav>
+<%--&lt;%&ndash;        <%@ include file="header.jsp" %>&ndash;%&gt;--%>
+<%--    </nav>--%>
 
-    <div class="slogan container container--90">
-        <div class="slogan--item">
-            <h1>
-                Oddaj rzeczy, których już nie chcesz<br/>
-                <span class="uppercase">potrzebującym</span>
-            </h1>
+<%--    <div class="slogan container container--90">--%>
+<%--        <div class="slogan--item">--%>
+<%--            <h1>--%>
+<%--                Oddaj rzeczy, których już nie chcesz<br/>--%>
+<%--                <span class="uppercase">potrzebującym</span>--%>
+<%--            </h1>--%>
 
-            <div class="slogan--steps">
-                <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
-                <ul class="slogan--steps-boxes">
-                    <li>
-                        <div><em>1</em><span>Wybierz rzeczy</span></div>
-                    </li>
-                    <li>
-                        <div><em>2</em><span>Spakuj je w worki</span></div>
-                    </li>
-                    <li>
-                        <div><em>3</em><span>Wybierz fundację</span></div>
-                    </li>
-                    <li>
-                        <div><em>4</em><span>Zamów kuriera</span></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
+<%--            <div class="slogan--steps">--%>
+<%--                <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>--%>
+<%--                <ul class="slogan--steps-boxes">--%>
+<%--                    <li>--%>
+<%--                        <div><em>1</em><span>Wybierz rzeczy</span></div>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <div><em>2</em><span>Spakuj je w worki</span></div>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <div><em>3</em><span>Wybierz fundację</span></div>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <div><em>4</em><span>Zamów kuriera</span></div>--%>
+<%--                    </li>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</header>--%>
 
 <section class="form--steps">
     <div class="form--steps-instructions">
@@ -66,6 +66,7 @@
                 której trafi Twoja przesyłka.
             </p>
             <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
+            <p data-step="5" class="active">Sprawdź i potwierdź dane.</p>
         </div>
     </div>
 
@@ -76,8 +77,8 @@
         <%--        <form action="/institution" method="post">--%>
         <form:form method="post" modelAttribute="donation">
             <!-- STEP 1: class .active is switching steps -->
-            <div data-step="1">
-                <h3>Zaznacz co chcesz oddać:</h3>
+<%--            <div data-step="1">--%>
+<%--                <h3>Zaznacz co chcesz oddać:</h3>--%>
                     <%--                <form:errors path="*" element="div" cssClass="error"></form:errors>--%>
 
                     <%--                <c:forEach items="${categoryContainer.categories}" var="category" varStatus="tagStatus">--%>
@@ -145,11 +146,11 @@
                     <%--                    </label>--%>
                     <%--                </div>--%>
 
-                <div class="form-group form-group--buttons">
-                        <%--                                            <button type="button" class="btn next-step">Dalej</button>--%>
-                    <input type="submit" value="Dalej" class="btn">
-                </div>
-            </div>
+<%--                <div class="form-group form-group--buttons">--%>
+<%--                        &lt;%&ndash;                                            <button type="button" class="btn next-step">Dalej</button>&ndash;%&gt;--%>
+<%--                    <input type="submit" value="Dalej" class="btn">--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
             <!-- STEP 2 -->
             <%--            <div data-step="2">--%>
@@ -172,8 +173,8 @@
 
 
             <!-- STEP 4 -->
-            <div data-step="3">
-                <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+<%--            <div data-step="3">--%>
+<%--                <h3>Wybierz organizacje, której chcesz pomóc:</h3>--%>
                     <%--                <c:forEach items="${institutions}" var="institution">--%>
                     <%--                    <div class="form-group form-group--checkbox">--%>
                     <%--                        <label>--%>
@@ -217,11 +218,11 @@
                     <%--                    </label>--%>
                     <%--                </div>--%>
 
-                <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="submit" class="btn next-step">Dalej</button>
-                </div>
-            </div>
+<%--                <div class="form-group form-group--buttons">--%>
+<%--                    <button type="button" class="btn prev-step">Wstecz</button>--%>
+<%--                    <button type="submit" class="btn next-step">Dalej</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
             <!-- STEP 5 -->
             <%--            <div data-step="4">--%>
@@ -359,19 +360,19 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>Prosta 51</li>
-                                <li>Warszawa</li>
-                                <li>99-098</li>
-                                <li>123 456 789</li>
+                                <li>${donation.street}</li>
+                                <li>${donation.city}</li>
+                                <li>${donation.zipCode}</li>
+                                <li>${donation.phoneNumber}</li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>13/12/2018</li>
-                                <li>15:40</li>
-                                <li>Brak uwag</li>
+                                <li>${donation.pickUpDate}</li>
+                                <li>${donation.pickUpTime}</li>
+                                <li>${donation.pickUpComment}</li>
                             </ul>
                         </div>
                     </div>
@@ -387,7 +388,7 @@
     </div>
 </section>
 
-<%@ include file="footer.jsp" %>
+<%--<%@ include file="footer.jsp" %>--%>
 
 <%--<script src="<c:url value="resources/js/app.js"/>"></script>--%>
 </body>

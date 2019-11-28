@@ -112,6 +112,7 @@ public class DonationController {
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
 //        Donation dd = donation;
 //        donation.setCategories(categoryService.getCategoriesFromSession(session));
+        donationService.save(donation);
         return "redirect:donate";
     }
 

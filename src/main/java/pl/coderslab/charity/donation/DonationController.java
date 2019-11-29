@@ -14,6 +14,7 @@ import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 
 @Controller
 public class DonationController {
@@ -92,6 +93,12 @@ public class DonationController {
 
     @PostMapping("/address")
     public String addressAction(Model model, HttpSession session, @Validated({DeliveryValidationGroup.class}) @ModelAttribute Donation donation, BindingResult result) {
+        if(donation!=null
+                && donation.getPickUpDate()!=null
+                && donation.getPickUpDate().isBefore(LocalDate.now().plusDays(1)) ){
+            result.addError(new FieldError("donation", "pickUpDate",
+                    "Nie możemy przyjechać wcześniej niż jutro"));
+        }
         if (result.hasErrors()) {
             return "address";
         }

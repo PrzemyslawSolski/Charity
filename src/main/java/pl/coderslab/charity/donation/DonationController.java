@@ -56,8 +56,6 @@ public class DonationController {
 
     @GetMapping("/quantity")
     public String quantityAction(Model model) {
-//        int quantity = 0;
-//        model.addAttribute("quantity", quantity);
         return "quantity";
     }
 
@@ -119,6 +117,10 @@ public class DonationController {
 
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
+        String form = donationService.wrongForm(donation);
+        if(form!=null){
+            return "redirect:" + form;
+        }
         donationService.save(donation);
         donationService.clearSessionData(session);
         return "redirect:confirmation";

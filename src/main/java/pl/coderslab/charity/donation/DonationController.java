@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.email.EmailService;
@@ -29,9 +30,9 @@ public class DonationController {
     }
 
     @GetMapping("/donate")
-    public String donateAction(Model model) {
+    public String donateAction(Model model, HttpSession session) {
         CategoryContainer categoryContainer = new CategoryContainer();
-        categoryContainer.setCategories(categoryService.findAll());
+        categoryContainer.setCategories(categoryService.getCategoriesWithSelectedFromSession(session));
         model.addAttribute("categoryContainer", categoryContainer);
         return "categories";
     }

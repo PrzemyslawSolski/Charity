@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.email.EmailService;
@@ -15,8 +14,6 @@ import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.net.URI;
 
 @Controller
 public class DonationController {
@@ -130,7 +127,8 @@ public class DonationController {
     public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message, HttpServletRequest request) {
         String messageText = name + " " + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
-        return "redirect:"+ request.getHeader("referer");
+//        return "redirect:"+ request.getHeader("referer");
+        return "email-confirmation";
     }
 
 

@@ -20,8 +20,8 @@
 
       <div class="slogan container container--90">
           <h2>
-            <div>Dziękujemy za przesłanie formularza.</div>
-            <div>Na maila prześlemy wszelkie informacje o odbiorze.</div>
+            <div>Dziękujemy za kontakt.</div>
+            <div>Na pytania odpowiadamy w ciągu 24 godzin.</div>
           </h2>
       </div>
     </header>

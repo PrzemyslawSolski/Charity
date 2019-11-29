@@ -101,7 +101,20 @@ public class DonationController {
 
     @GetMapping("/summary")
     public String summaryAction(Model model, HttpSession session) {
-        model.addAttribute("donation", donationService.collectDonationFromSession(session));
+        Donation donation = donationService.collectDonationFromSession(session);
+        if (donation.getCategories() == null || donation.getCategories().isEmpty()) {
+            return "redirect:donate";
+        }
+        if (donation.getQuantity() < 1) {
+            return "redirect:quantity";
+        }
+        if (donation.getInstitution() == null) {
+            return "redirect:institution";
+        }
+        if(!donationService.isDeliveryCorrect(donation)){
+            return "redirect:address";
+        }
+        model.addAttribute("donation", donation);
         return "summary";
     }
 

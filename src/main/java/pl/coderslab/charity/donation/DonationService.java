@@ -10,6 +10,7 @@ import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,9 +47,18 @@ public class DonationService {
 
     public Donation collectDonationFromSession(HttpSession session) {
         Donation donation = (Donation) session.getAttribute("donation");
-        donation.setQuantity((Integer) session.getAttribute("quantity"));
-        donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
-        donation.setCategories(categoryService.getCategoriesFromSession(session));
+        if(donation==null){
+            donation = new Donation();
+        }
+        if(session.getAttribute("quantity")!=null) {
+            donation.setQuantity((Integer) session.getAttribute("quantity"));
+        }
+        if(session.getAttribute("institutionId")!=null) {
+            donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
+        }
+        if(categoryService.getCategoriesFromSession(session)!=null) {
+            donation.setCategories(categoryService.getCategoriesFromSession(session));
+        }
         return donation;
     }
 
@@ -57,6 +67,20 @@ public class DonationService {
         session.removeAttribute("quantity");
         session.removeAttribute("institutionId");
         session.removeAttribute("categoriesIds");
+    }
+
+    public boolean isDeliveryCorrect(Donation donation) {
+        if (
+            donation.getCity() == null || donation.getCity().isEmpty()
+            || donation.getPhoneNumber() == null || donation.getPhoneNumber().isEmpty()
+            || donation.getPickUpDate() == null || donation.getPickUpDate().isBefore(LocalDate.now().plusDays(1))
+            || donation.getPickUpTime() == null
+            || donation.getStreet() == null || donation.getStreet().isEmpty()
+            || donation.getZipCode() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 
     public long getTotalQuantity() {

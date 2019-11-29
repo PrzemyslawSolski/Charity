@@ -78,8 +78,14 @@ public class DonationController {
     }
 
     @GetMapping("/address")
-    public String addressAction(Model model) {
-        model.addAttribute("donation", new Donation());
+    public String addressAction(Model model, HttpSession session) {
+
+        Donation donation = (Donation) session.getAttribute("donation");
+        if (donation == null) {
+            model.addAttribute("donation", new Donation());
+        } else {
+            model.addAttribute("donation", donation);
+        }
         return "address";
     }
 
@@ -119,7 +125,7 @@ public class DonationController {
     @PostMapping("/email")
     @ResponseBody
     public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
-        String messageText = name + " "  + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
+        String messageText = name + " " + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
         return "redirect:/";
     }

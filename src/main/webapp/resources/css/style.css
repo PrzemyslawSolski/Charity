@@ -514,6 +514,10 @@ h2:after {
   border: 1px solid #3c3c3c;
 }
 
+.error {
+  color: red;
+}
+
 /* line 1, scss/modules/_forms.scss */
 form {
   display: -webkit-box;

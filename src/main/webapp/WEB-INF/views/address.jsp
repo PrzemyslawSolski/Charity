@@ -232,22 +232,26 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica <form:input path="street"  type="text" name="address"/> </label>
+                            <form:errors path="street" element="div" cssClass="error"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Miasto <form:input path="city" type="text" name="city"/> </label>
+                            <form:errors path="city" element="div" cssClass="error"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Kod pocztowy <form:input path="zipCode" type="text" name="postcode"/>
                             </label>
+                            <form:errors path="zipCode" element="div" cssClass="error"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Numer telefonu <form:input path="phoneNumber" type="phone" name="phone"/>
                             </label>
+                            <form:errors path="phoneNumber" element="div" cssClass="error"></form:errors>
                         </div>
                     </div>
 
@@ -255,10 +259,12 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data <form:input path="pickUpDate" type="date" name="data"/> </label>
+                            <form:errors path="pickUpDate" element="div" cssClass="error"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina <form:input path="pickUpTime" type="time" name="time"/> </label>
+                            <form:errors path="pickUpTime" element="div" cssClass="error"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">

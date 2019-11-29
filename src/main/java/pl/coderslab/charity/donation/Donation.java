@@ -5,6 +5,9 @@ import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -16,21 +19,29 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
     private int quantity;
     @ManyToMany
     @JoinTable(name = "donation_categories",
             joinColumns = @JoinColumn(name = "donation_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @NotEmpty
     private List<Category> categories = new ArrayList<>();
     @ManyToOne
 //    @JoinColumn(name = "institution_id")
     private Institution institution;
+    @NotBlank(groups={DeliveryValidationGroup.class})
     private String street;
+    @NotBlank(groups={DeliveryValidationGroup.class})
     private String city;
+    @NotBlank(groups={DeliveryValidationGroup.class})
     private String zipCode;
+    @NotBlank(groups={DeliveryValidationGroup.class})
     private String phoneNumber;
+    @NotNull(groups={DeliveryValidationGroup.class})
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate pickUpDate;
+    @NotNull(groups={DeliveryValidationGroup.class})
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime pickUpTime;
     private String pickUpComment;

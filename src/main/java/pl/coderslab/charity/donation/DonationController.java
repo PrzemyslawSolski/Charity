@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryContainer;
@@ -13,6 +14,7 @@ import pl.coderslab.charity.email.EmailService;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class DonationController {
@@ -90,7 +92,7 @@ public class DonationController {
     }
 
     @PostMapping("/address")
-    public String addressAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
+    public String addressAction(Model model, HttpSession session, @Validated({DeliveryValidationGroup.class}) @ModelAttribute Donation donation, BindingResult result) {
         if (result.hasErrors()) {
             return "address";
         }

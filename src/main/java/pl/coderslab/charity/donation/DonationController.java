@@ -108,19 +108,19 @@ public class DonationController {
         return "form-confirmation";
     }
 
-    @GetMapping("/email")
-    @ResponseBody
-    public String emailSend(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
-//        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "tytuł testowy", "text");
-        return "Email sent";
-    }
+//    @GetMapping("/email")
+//    @ResponseBody
+//    public String emailSend(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
+////        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "tytuł testowy", "text");
+//        return "Email sent";
+//    }
 
     @PostMapping("/email")
     @ResponseBody
     public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
         String messageText = name + " "  + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
-        return "Email sent post: " + messageText;
+        return "redirect:/";
     }
 
 

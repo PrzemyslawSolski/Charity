@@ -62,6 +62,22 @@ public class DonationService {
         return donation;
     }
 
+    public String wrongForm(Donation donation){
+        if (donation.getCategories() == null || donation.getCategories().isEmpty()) {
+            return "donate";
+        }
+        if (donation.getQuantity() < 1) {
+            return "quantity";
+        }
+        if (donation.getInstitution() == null) {
+            return "institution";
+        }
+        if(!isDeliveryCorrect(donation)){
+            return "address";
+        }
+        return null;
+    }
+
     public void clearSessionData(HttpSession session) {
         session.removeAttribute("donation");
         session.removeAttribute("quantity");

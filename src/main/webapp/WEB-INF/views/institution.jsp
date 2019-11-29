@@ -177,7 +177,11 @@
                 <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="radio" name="institution" value="${institution.id}" required>
+                            <input type="radio" name="institution" value="${institution.id}" required
+                            <c:if test="${institution.id==institutionId}">
+                                checked="checked"
+                            </c:if>
+                            >
                             <span class="checkbox radio"></span>
                             <span class="description">
                   <div class="title">${institution.name}</div>

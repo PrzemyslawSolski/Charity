@@ -44,12 +44,19 @@ public class DonationService {
         return selectedCategoriesIds;
     }
 
-    public Donation collectDonationFromSession(HttpSession session){
+    public Donation collectDonationFromSession(HttpSession session) {
         Donation donation = (Donation) session.getAttribute("donation");
         donation.setQuantity((Integer) session.getAttribute("quantity"));
         donation.setInstitution(institutionService.getOne((Long) session.getAttribute("institutionId")));
         donation.setCategories(categoryService.getCategoriesFromSession(session));
         return donation;
+    }
+
+    public void clearSessionData(HttpSession session) {
+        session.removeAttribute("donation");
+        session.removeAttribute("quantity");
+        session.removeAttribute("institutionId");
+        session.removeAttribute("categoriesIds");
     }
 
     public long getTotalQuantity() {

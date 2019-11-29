@@ -108,6 +108,7 @@ public class DonationController {
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
         donationService.save(donation);
+        donationService.clearSessionData(session);
         return "redirect:confirmation";
     }
 

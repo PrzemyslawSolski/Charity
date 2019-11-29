@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn prev-step" onclick="location.href='/donate'">Wstecz</button>
                     <button type="submit" class="btn">Dalej</button>
 <%--                    <input type="submit" class="btn" value="Dalej"></input>--%>
                 </div>

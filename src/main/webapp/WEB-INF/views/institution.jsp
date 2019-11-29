@@ -222,7 +222,7 @@
 <%--                </div>--%>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn prev-step"  onclick="location.href='/quantity'">Wstecz</button>
                     <button type="submit" class="btn next-step">Dalej</button>
                 </div>
             </div>

@@ -380,7 +380,7 @@
 
                 <div class="form-group form-group--buttons">
 <%--                    <a href="${header.referer}">--%>
-                    <button type="button" class="btn prev-step" onclick="location.href='${header.referer}'">${header.referer}</button>
+                    <button type="button" class="btn prev-step" onclick="location.href='/address'">Wstecz</button>
 <%--                    </a>--%>
                     <button type="submit" class="btn">Potwierdzam</button>
                 </div>

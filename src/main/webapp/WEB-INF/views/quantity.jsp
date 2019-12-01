@@ -49,7 +49,7 @@
     </div>
 </header>
 
-<section class="form--steps">
+<section id="data" class="form--steps">
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>
@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step" onclick="location.href='/donate'">Wstecz</button>
+                    <button type="button" class="btn prev-step" onclick="location.href='/donate#data'">Wstecz</button>
                     <button type="submit" class="btn">Dalej</button>
 <%--                    <input type="submit" class="btn" value="Dalej"></input>--%>
                 </div>

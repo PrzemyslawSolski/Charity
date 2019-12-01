@@ -49,7 +49,7 @@
     </div>
 </header>
 
-<section class="form--steps">
+<section id="data" class="form--steps">
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>
@@ -222,7 +222,7 @@
 <%--                </div>--%>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step"  onclick="location.href='/quantity'">Wstecz</button>
+                    <button type="button" class="btn prev-step"  onclick="location.href='/quantity#data'">Wstecz</button>
                     <button type="submit" class="btn next-step">Dalej</button>
                 </div>
             </div>

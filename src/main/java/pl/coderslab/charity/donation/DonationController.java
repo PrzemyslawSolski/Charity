@@ -51,7 +51,7 @@ public class DonationController {
             return "categories";
         }
         session.setAttribute("categoriesIds", donationService.getSelectedCategoriesIds(categoryContainer));
-        return "redirect:quantity";
+        return "redirect:quantity#data";
     }
 
     @GetMapping("/quantity")
@@ -62,7 +62,7 @@ public class DonationController {
     @PostMapping("/quantity")
     public String quantityAction(@RequestParam Integer quantity, HttpSession session) {
         session.setAttribute("quantity", quantity);
-        return "redirect:institution";
+        return "redirect:institution#data";
     }
 
     @GetMapping("/institution")
@@ -74,7 +74,7 @@ public class DonationController {
     @PostMapping("/institution")
     public String organizationAction(@RequestParam Long institution, HttpSession session) {
         session.setAttribute("institutionId", institution);
-        return "redirect:address";
+        return "redirect:address#data";
     }
 
     @GetMapping("/address")
@@ -101,7 +101,7 @@ public class DonationController {
             return "address";
         }
         session.setAttribute("donation", donation);
-        return "redirect:summary";
+        return "redirect:summary#data";
     }
 
     @GetMapping("/summary")
@@ -109,7 +109,7 @@ public class DonationController {
         Donation donation = donationService.collectDonationFromSession(session);
         String form = donationService.wrongForm(donation);
         if(form!=null){
-            return "redirect:" + form;
+            return "redirect:" + form +"#data";
         }
         model.addAttribute("donation", donation);
         return "summary";
@@ -119,7 +119,7 @@ public class DonationController {
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
         String form = donationService.wrongForm(donation);
         if(form!=null){
-            return "redirect:" + form;
+            return "redirect:" + form +"#data";
         }
         donationService.save(donation);
         donationService.clearSessionData(session);
@@ -131,20 +131,11 @@ public class DonationController {
         return "form-confirmation";
     }
 
-//    @GetMapping("/email")
-//    @ResponseBody
-//    public String emailSend(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
-////        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "tytuł testowy", "text");
-//        return "Email sent";
-//    }
-
     @PostMapping("/email")
-    public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message, HttpServletRequest request) {
+    public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
         String messageText = name + " " + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
-//        return "redirect:"+ request.getHeader("referer");
         return "email-confirmation";
     }
-
 
 }

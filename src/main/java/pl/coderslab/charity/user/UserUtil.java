@@ -8,16 +8,17 @@ import java.util.Arrays;
 public class UserUtil {
 
     public String generateToken(int tokenLength) {
-        String token = "";
+        StringBuilder token = new StringBuilder();
+        int code;
         do {
-            int code = (int) (1.0 * 93 * Math.random()) + 33;
+            code = (int) (1.0 * 93 * Math.random()) + 33;
             if ((code >= '0' && code <= '9')
                     || (code >= 'A' && code <= 'Z')
                     || (code >= 'a' && code <= 'z')
             ) {
-                token += (char) code;
+                token.append((char)code);
             }
         } while (token.length() < tokenLength);
-        return token;
+        return token.toString();
     }
 }

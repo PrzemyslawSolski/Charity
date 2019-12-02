@@ -1,5 +1,6 @@
 package pl.coderslab.charity.user;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -50,6 +53,38 @@ public class UserController {
 //        Hibernate.initialize(user.getEvents());
         userService.save(user);
         return "redirect:login";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@Validated({LoginValidationGroup.class}) User user,
+                        BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            return "login";
+        }
+
+        User existingUser = userService.getFirstByEmail(user.getEmail().toLowerCase());
+        if (existingUser == null ||
+                !BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
+            result.addError(new FieldError("user", "password",
+                    "Niepoprawny email lub hasło"));
+            return "login";
+        }
+        session.setAttribute("userId", existingUser.getId());
+        session.setAttribute("firstName", existingUser.getName());
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
 }

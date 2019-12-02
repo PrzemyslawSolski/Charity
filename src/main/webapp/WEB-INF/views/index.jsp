@@ -16,8 +16,8 @@
 <header class="header--main-page">
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+<%--            <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>--%>
+<%--            <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>--%>
         </ul>
 
         <%@ include file="header.jsp" %>
@@ -122,30 +122,6 @@
             <c:if test="${institutions.size() % 2 !=0}">
                 </il>
             </c:if>
-
-<%--            <li>--%>
-<%--                <div class="col">--%>
-<%--                    <div class="title">Fundacja "Dbam o Zdrowie"</div>--%>
-<%--                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>--%>
-<%--                </div>--%>
-
-<%--                <div class="col">--%>
-<%--                    <div class="title">Fundacja "A kogo"</div>--%>
-<%--                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>--%>
-<%--                </div>--%>
-<%--            </li>--%>
-
-<%--            <li>--%>
-<%--                <div class="col">--%>
-<%--                    <div class="title">Fundacja “Dla dzieci"</div>--%>
-<%--                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>--%>
-<%--                </div>--%>
-<%--                <div class="col">--%>
-<%--                    <div class="title">Fundacja “Bez domu”</div>--%>
-<%--                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>--%>
-<%--                </div>--%>
-
-<%--            </li>--%>
 
         </ul>
     </div>

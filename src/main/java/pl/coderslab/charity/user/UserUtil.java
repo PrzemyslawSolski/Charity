@@ -2,8 +2,6 @@ package pl.coderslab.charity.user;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
 public class UserUtil {
 

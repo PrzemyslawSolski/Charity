@@ -12,6 +12,8 @@ import pl.coderslab.charity.email.EmailService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Controller
 public class UserController {
@@ -98,19 +100,41 @@ public class UserController {
     @PostMapping("/remind")
     @ResponseBody
     public String remindPasswordPostAction(@RequestParam String email) {
-        String token = userUtil.generateToken(32);
-
-        String messageText = "W aplikacji 'Zacznij pomagać' wybrano opcję zmiany zapomnianego hasła. "
-                + System.getProperty("line.separator")
-                + "Jeżeli to nie Ty, nie rób nic."
-                + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "Jeżeli wybrałeś opcję zmiany hasła, kliknij poniższy link:"
-                + System.getProperty("line.separator")
-                + "http://" + "localhost:8080/remind/" + token;
-//        emailService.sendSimpleMessage(email, "Zmiana hasła", messageText);
-//        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
+        User user = userService.getFirstByEmail(email.toLowerCase());
+        String messageText="";
+        if(user!=null) {
+            userService.generateSaveSendToken(user);
+//            String token = userUtil.generateToken(32);
+//
+//            messageText = "W aplikacji 'Zacznij pomagać' wybrano opcję zmiany zapomnianego hasła. "
+//                    + System.getProperty("line.separator")
+//                    + "Jeżeli to nie Ty, nie rób nic."
+//                    + System.getProperty("line.separator")
+//                    + System.getProperty("line.separator")
+//                    + "Jeżeli wybrałeś opcję zmiany hasła, kliknij poniższy link:"
+//                    + System.getProperty("line.separator")
+//                    + "http://" + "localhost:8080/remind/" + token;
+////        emailService.sendSimpleMessage(email, "Zmiana hasła", messageText);
+////        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
+        }
         return messageText;
+    }
+
+    @GetMapping("remind/{token}")
+    public String resetPasswordFromToken(@PathVariable String token, HttpSession session) {
+        User user = userService.getFirstByToken(token);
+        if (user!=null){
+            if(user.getTokenValidityDay().compareTo(LocalDate.now())>=0
+                && user.getTokenValidityTime().compareTo(LocalTime.now())>=0){
+                //token ok and valid
+
+            }else{
+                //token correct but no longer valid
+            }
+        }else{
+            //wrong token
+        }
+        return null;
     }
 
 

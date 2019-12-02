@@ -1,7 +1,6 @@
 package pl.coderslab.charity.category;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "categories")
@@ -12,8 +11,6 @@ public class Category {
     private String name;
     @Transient
     private boolean chosen = false;
-//    @ManyToMany(mappedBy = "categories")
-//    private List<Donation> donations = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -43,11 +40,4 @@ public class Category {
         this.chosen = chosen;
     }
 
-//    public List<Donation> getDonations() {
-//        return donations;
-//    }
-//
-//    public void setDonations(List<Donation> donations) {
-//        this.donations = donations;
-//    }
 }

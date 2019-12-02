@@ -27,8 +27,8 @@ public class Donation {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     @NotEmpty
     private List<Category> categories = new ArrayList<>();
+    @NotNull
     @ManyToOne
-//    @JoinColumn(name = "institution_id")
     private Institution institution;
     @NotBlank(groups={DeliveryValidationGroup.class})
     private String street;

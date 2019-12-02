@@ -29,8 +29,15 @@ public class DonationService {
         this.categoryService = categoryService;
     }
 
+    public boolean isInstitutionIdOk (Long id){
+        if(institutionService.getOne(id)==null){
+            return false;
+        }
+        return true;
+    }
+
     public int numberOfSelectedCategories(CategoryContainer categoryContainer) {
-        return categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList()).size();
+        return (int) categoryContainer.getCategories().stream().filter(Category::isChosen).count();
     }
     public int numberOfSelectedCategories(List<Category> categories) {
         return categories.stream().filter(Category::isChosen).collect(Collectors.toList()).size();

@@ -76,7 +76,9 @@ public class DonationController {
 
     @PostMapping("/institution")
     public String organizationAction(@RequestParam Long institution, HttpSession session) {
-
+        if (!donationService.isInstitutionIdOk(institution)) {
+            return "redirect:institution#data";
+        }
         session.setAttribute("institutionId", institution);
         return "redirect:address#data";
     }
@@ -95,9 +97,9 @@ public class DonationController {
 
     @PostMapping("/address")
     public String addressAction(Model model, HttpSession session, @Validated({DeliveryValidationGroup.class}) @ModelAttribute Donation donation, BindingResult result) {
-        if(donation!=null
-                && donation.getPickUpDate()!=null
-                && donation.getPickUpDate().isBefore(LocalDate.now().plusDays(1)) ){
+        if (donation != null
+                && donation.getPickUpDate() != null
+                && donation.getPickUpDate().isBefore(LocalDate.now().plusDays(1))) {
             result.addError(new FieldError("donation", "pickUpDate",
                     "Nie możemy przyjechać wcześniej niż jutro"));
         }
@@ -112,8 +114,8 @@ public class DonationController {
     public String summaryAction(Model model, HttpSession session) {
         Donation donation = donationService.collectDonationFromSession(session);
         String form = donationService.wrongForm(donation);
-        if(form!=null){
-            return "redirect:" + form +"#data";
+        if (form != null) {
+            return "redirect:" + form + "#data";
         }
         model.addAttribute("donation", donation);
         return "summary";
@@ -122,8 +124,8 @@ public class DonationController {
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
         String form = donationService.wrongForm(donation);
-        if(form!=null){
-            return "redirect:" + form +"#data";
+        if (form != null) {
+            return "redirect:" + form + "#data";
         }
         donationService.save(donation);
         donationService.clearSessionData(session);

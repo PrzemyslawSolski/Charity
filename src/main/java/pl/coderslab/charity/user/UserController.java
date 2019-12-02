@@ -45,7 +45,7 @@ public class UserController {
                     "Błędny email lub użytkownik istnieje"));
             return "register";
         }
-        user.setEmail(user.getPassword().toLowerCase());
+        user.setEmail(user.getEmail().toLowerCase());
         user.setPasswordHash(user.getPassword());
 //        Hibernate.initialize(user.getEvents());
         userService.save(user);

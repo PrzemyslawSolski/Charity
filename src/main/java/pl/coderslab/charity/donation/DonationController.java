@@ -113,7 +113,7 @@ public class DonationController {
     @GetMapping("/summary")
     public String summaryAction(Model model, HttpSession session) {
         Donation donation = donationService.collectDonationFromSession(session);
-        String form = donationService.wrongForm(donation);
+        String form = donationService.getFirstFormWithWrongData(donation);
         if (form != null) {
             return "redirect:" + form + "#data";
         }
@@ -123,7 +123,7 @@ public class DonationController {
 
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
-        String form = donationService.wrongForm(donation);
+        String form = donationService.getFirstFormWithWrongData(donation);
         if (form != null) {
             return "redirect:" + form + "#data";
         }
@@ -138,8 +138,14 @@ public class DonationController {
     }
 
     @PostMapping("/email")
-    public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
-        String messageText = name + " " + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
+    public String emailSendPost(@RequestParam String name,
+                                @RequestParam String surname,
+                                @RequestParam String message,
+                                @RequestParam String email
+                                ) {
+        String messageText = name + " " + surname + System.getProperty("line.separator")
+                + "Email: " + email + System.getProperty("line.separator")
+                + " przesyła wiadomość: \r\n" + message;
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
 //        emailService.sendSimpleMessage("marcin.cieslak@coderslab.pl", "Kontakt z aplikacji", messageText);
         return "email-confirmation";

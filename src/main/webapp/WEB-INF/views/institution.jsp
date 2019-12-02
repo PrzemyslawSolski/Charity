@@ -83,7 +83,7 @@
                     <div class="form-group form-group--checkbox">
                         <label>
                             <input type="radio" name="institution" value="${institution.id}" required
-                            <c:if test="${institution.id==institutionId}">
+                            <c:if test="${institution.id==sessionScope.institutionId}">
                                 checked="checked"
                             </c:if>
                             >

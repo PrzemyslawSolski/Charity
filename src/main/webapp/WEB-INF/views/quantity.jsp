@@ -83,7 +83,7 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <input type="number" name="quantity" step="1" min="1" value="${quantity}" required/>
+                        <input type="number" name="quantity" step="1" min="1" value="${sessionScope.quantity}" required/>
                         <%--                        <form:input path="quantity" type="number" name="quantity" step="1" min="1"/>--%>
                     </label>
                 </div>

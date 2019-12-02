@@ -18,7 +18,7 @@ public class UserService {
     }
 
     public User getFirstByEmail(String email){
-        return userRepository.findFirstByEmail(email);
+        return userRepository.findFirstByEmail(email.toLowerCase());
     }
     public void save(User user) {
         userRepository.save(user);

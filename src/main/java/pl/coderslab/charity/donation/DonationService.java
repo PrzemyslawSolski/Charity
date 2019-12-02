@@ -84,7 +84,12 @@ public class DonationService {
         return donation;
     }
 
-    public String wrongForm(Donation donation){
+    /**
+     *
+     * @param donation
+     * @return
+     */
+    public String getFirstFormWithWrongData(Donation donation){
         if (donation.getCategories() == null || donation.getCategories().isEmpty()) {
             return "donate";
         }

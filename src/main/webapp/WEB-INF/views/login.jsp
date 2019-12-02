@@ -35,7 +35,7 @@
         <div class="form-group">
           <form:input type="password" path="password" placeholder="Hasło" />
           <form:errors path="password" element="div" cssClass="error"/>
-          <a href="#" class="btn btn--small btn--without-border reset-password">Nie pamiętam hasła</a>
+          <a href="/remind" class="btn btn--small btn--without-border reset-password">Nie pamiętam hasła</a>
         </div>
 
         <div class="form-group form-group--buttons">

@@ -7,10 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.email.EmailService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,24 +17,28 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     private final UserService userService;
+    private final EmailService emailService;
+    private final UserUtil userUtil;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, EmailService emailService, UserUtil userUtil) {
         this.userService = userService;
+        this.emailService = emailService;
+        this.userUtil = userUtil;
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String registerAction(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping("/register")
 //    @ResponseBody
-    public String register(@RequestParam String password2,
-                           Model model,
-                           @Validated({RegistrationValidationGroup.class}) @ModelAttribute User user,
-                           BindingResult result) {
+    public String registerAction(@RequestParam String password2,
+                                 Model model,
+                                 @Validated({RegistrationValidationGroup.class}) @ModelAttribute User user,
+                                 BindingResult result) {
         if (!user.getPassword().equals(password2)) {
             result.rejectValue("password", "error.user", "Błędnie powtórzone hasło");
         }
@@ -57,14 +59,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String loginAction(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@Validated({LoginValidationGroup.class}) User user,
-                        BindingResult result, HttpSession session) {
+    public String loginAction(@Validated({LoginValidationGroup.class}) User user,
+                              BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             return "login";
         }
@@ -83,9 +85,33 @@ public class UserController {
 
 
     @GetMapping("/logout")
-    public String logout(HttpSession session, HttpServletRequest request) {
+    public String logoutAction(HttpSession session, HttpServletRequest request) {
         session.invalidate();
         return "redirect:" + request.getHeader("referer");
     }
+
+    @GetMapping("/remind")
+    public String remindPasswordAction() {
+        return "remind";
+    }
+
+    @PostMapping("/remind")
+    @ResponseBody
+    public String remindPasswordPostAction(@RequestParam String email) {
+        String token = userUtil.generateToken(32);
+
+        String messageText = "W aplikacji 'Zacznij pomagać' wybrano opcję zmiany zapomnianego hasła. "
+                + System.getProperty("line.separator")
+                + "Jeżeli to nie Ty, nie rób nic."
+                + System.getProperty("line.separator")
+                + System.getProperty("line.separator")
+                + "Jeżeli wybrałeś opcję zmiany hasła, kliknij poniższy link:"
+                + System.getProperty("line.separator")
+                + "http://" + "localhost:8080/remind/" + token;
+//        emailService.sendSimpleMessage(email, "Zmiana hasła", messageText);
+//        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
+        return messageText;
+    }
+
 
 }

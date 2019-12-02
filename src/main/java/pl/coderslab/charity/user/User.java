@@ -1,6 +1,8 @@
 package pl.coderslab.charity.user;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="users")
@@ -8,9 +10,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotEmpty(groups={RegistrationValidationGroup.class})
     private String name;
+    @NotEmpty(groups={RegistrationValidationGroup.class})
     private String surname;
+    @NotEmpty(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
+    @Email(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
     private String email;
+    @NotEmpty(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
     private String password;
 
     public long getId() {

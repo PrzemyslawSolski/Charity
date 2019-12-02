@@ -141,6 +141,7 @@ public class DonationController {
     public String emailSendPost(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
         String messageText = name + " " + surname + System.getProperty("line.separator") + " przesyła wiadomość: \r\n" + message;
         emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
+//        emailService.sendSimpleMessage("marcin.cieslak@coderslab.pl", "Kontakt z aplikacji", messageText);
         return "email-confirmation";
     }
 

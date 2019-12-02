@@ -32,6 +32,9 @@ public class DonationService {
     public int numberOfSelectedCategories(CategoryContainer categoryContainer) {
         return categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList()).size();
     }
+    public int numberOfSelectedCategories(List<Category> categories) {
+        return categories.stream().filter(Category::isChosen).collect(Collectors.toList()).size();
+    }
 
     public long[] getSelectedCategoriesIds(CategoryContainer categoryContainer) {
         int noOfSelectedCategories = numberOfSelectedCategories(categoryContainer);
@@ -39,6 +42,18 @@ public class DonationService {
         long[] selectedCategoriesIds = new long[noOfSelectedCategories];
         int counter = 0;
         for (Category category : categoryContainer.getCategories().stream().filter(Category::isChosen).collect(Collectors.toList())) {
+            selectedCategoriesIds[counter] = category.getId();
+            counter++;
+        }
+        return selectedCategoriesIds;
+    }
+
+    public long[] getSelectedCategoriesIds(List<Category> categories) {
+        int noOfSelectedCategories = numberOfSelectedCategories(categories);
+//        List<Category> categories = categoryContainer.getCategories();
+        long[] selectedCategoriesIds = new long[noOfSelectedCategories];
+        int counter = 0;
+        for (Category category : categories.stream().filter(Category::isChosen).collect(Collectors.toList())) {
             selectedCategoriesIds[counter] = category.getId();
             counter++;
         }

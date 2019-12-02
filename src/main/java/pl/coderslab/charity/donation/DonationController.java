@@ -12,7 +12,6 @@ import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.email.EmailService;
 import pl.coderslab.charity.institution.InstitutionService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 
@@ -36,14 +35,17 @@ public class DonationController {
         CategoryContainer categoryContainer = new CategoryContainer();
         categoryContainer.setCategories(categoryService.getCategoriesWithSelectedFromSession(session));
         model.addAttribute("categoryContainer", categoryContainer);
+//        model.addAttribute("categories", categoryService.getCategoriesWithSelectedFromSession(session));
         return "categories";
     }
 
     @PostMapping("/donate")
     public String donateAction(Model model, HttpSession session,
                                @ModelAttribute CategoryContainer categoryContainer,
+//                               @ModelAttribute List<Category> categories,
                                BindingResult result) {
         if (donationService.numberOfSelectedCategories(categoryContainer) == 0) {
+//        if (donationService.numberOfSelectedCategories(categories) == 0) {
             result.addError(new FieldError("categoryContainer", "categories",
                     "Musisz wybrać conajmniej jedną pozycję"));
         }
@@ -51,6 +53,7 @@ public class DonationController {
             return "categories";
         }
         session.setAttribute("categoriesIds", donationService.getSelectedCategoriesIds(categoryContainer));
+//        session.setAttribute("categoriesIds", donationService.getSelectedCategoriesIds(categories));
         return "redirect:quantity#data";
     }
 
@@ -73,6 +76,7 @@ public class DonationController {
 
     @PostMapping("/institution")
     public String organizationAction(@RequestParam Long institution, HttpSession session) {
+
         session.setAttribute("institutionId", institution);
         return "redirect:address#data";
     }

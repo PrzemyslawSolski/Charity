@@ -24,7 +24,7 @@
     </nav>
 </header>
 
-<section class="login-page">
+<section id="register" class="login-page">
     <h2>Załóż konto</h2>
     <form:form method="post" id="edit-form" modelAttribute="user">
         <div class="form-group">

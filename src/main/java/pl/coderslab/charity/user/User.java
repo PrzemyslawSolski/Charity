@@ -1,6 +1,7 @@
 package pl.coderslab.charity.user;
 
 import javax.persistence.*;
+import org.mindrot.jbcrypt.BCrypt;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -19,6 +20,10 @@ public class User {
     private String email;
     @NotEmpty(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
     private String password;
+
+    public void setPasswordHash(String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    }
 
     public long getId() {
         return id;

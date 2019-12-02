@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -82,9 +83,9 @@ public class UserController {
 
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletRequest request) {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:" + request.getHeader("referer");
     }
 
 }

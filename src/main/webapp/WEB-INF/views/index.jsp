@@ -15,10 +15,11 @@
 <body>
 <header class="header--main-page">
     <nav class="container container--70">
-        <ul class="nav--actions">
-            <li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a href="/register#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-        </ul>
+<%--        <ul class="nav--actions">--%>
+<%--            <li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>--%>
+<%--            <li><a href="/register#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>--%>
+<%--        </ul>--%>
+        <%@ include file="user_menu.jsp" %>
 
         <%@ include file="header.jsp" %>
     </nav>
@@ -40,8 +41,8 @@
 
             <h3>Oddanych worków</h3>
             <p>
-<%--                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum--%>
-<%--                tempora!--%>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
+                tempora!
             </p>
         </div>
 

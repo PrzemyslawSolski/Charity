@@ -10,15 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
-  <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
 <header>
     <nav class="container container--70">
-        <ul class="nav--actions">
-            <li><a href="/login">Zaloguj</a></li>
-            <li class="highlighted"><a href="/register#register">Załóż konto</a></li>
-        </ul>
+        <%--        <ul class="nav--actions">--%>
+        <%--            <li><a href="/login">Zaloguj</a></li>--%>
+        <%--            <li class="highlighted"><a href="/register#register">Załóż konto</a></li>--%>
+        <%--        </ul>--%>
+        <%@ include file="user_menu.jsp" %>
 
         <%@ include file="header.jsp" %>
     </nav>
@@ -29,19 +30,19 @@
     <form:form method="post" id="edit-form" modelAttribute="user">
         <div class="form-group">
             <form:input type="text" path="name" placeholder="Imię"/>
-            <form:errors path="name" element="div" cssClass="error"></form:errors>
+            <form:errors path="name" element="div" cssClass="error"/>
         </div>
         <div class="form-group">
             <form:input type="text" path="surname" placeholder="Nazwisko"/>
-            <form:errors path="surname" element="div" cssClass="error"></form:errors>
+            <form:errors path="surname" element="div" cssClass="error"/>
         </div>
         <div class="form-group">
             <form:input type="email" path="email" placeholder="Email"/>
-            <form:errors path="email" element="div" cssClass="error"></form:errors>
+            <form:errors path="email" element="div" cssClass="error"/>
         </div>
         <div class="form-group">
             <form:input type="password" path="password" placeholder="Hasło"/>
-            <form:errors path="password" element="div" cssClass="error"></form:errors>
+            <form:errors path="password" element="div" cssClass="error"/>
         </div>
         <div class="form-group">
             <input type="password" name="password2" placeholder="Powtórz hasło"/>

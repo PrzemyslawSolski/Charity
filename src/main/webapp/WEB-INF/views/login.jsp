@@ -15,10 +15,11 @@
   <body>
   <header>
     <nav class="container container--70">
-      <ul class="nav--actions">
-        <li><a href="/login">Zaloguj</a></li>
-        <li class="highlighted"><a href="/register#register">Załóż konto</a></li>
-      </ul>
+<%--      <ul class="nav--actions">--%>
+<%--        <li><a href="/login">Zaloguj</a></li>--%>
+<%--        <li class="highlighted"><a href="/register#register">Załóż konto</a></li>--%>
+<%--      </ul>--%>
+      <%@ include file="user_menu.jsp" %>
 
       <%@ include file="header.jsp" %>
     </nav>
@@ -29,10 +30,12 @@
       <form:form method="post" id="edit-form" modelAttribute="user">
         <div class="form-group">
           <form:input type="email" path="email" placeholder="Email" />
+          <form:errors path="email" element="div" cssClass="error"/>
         </div>
         <div class="form-group">
           <form:input type="password" path="password" placeholder="Hasło" />
-          <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+          <form:errors path="password" element="div" cssClass="error"/>
+          <a href="#" class="btn btn--small btn--without-border reset-password">Nie pamiętam hasła</a>
         </div>
 
         <div class="form-group form-group--buttons">

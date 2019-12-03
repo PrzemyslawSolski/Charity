@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -25,10 +26,11 @@ public class User {
     @NotEmpty(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
     private String password;
     private String token;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate tokenValidityDay;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    private LocalTime tokenValidityTime;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//    private LocalDate tokenValidityDay;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+//    private LocalTime tokenValidityTime;
+    private Timestamp tokenValidity;
 
 
     public void setPasswordHash(String password) {
@@ -83,19 +85,12 @@ public class User {
         this.token = token;
     }
 
-    public LocalDate getTokenValidityDay() {
-        return tokenValidityDay;
+
+    public Timestamp getTokenValidity() {
+        return tokenValidity;
     }
 
-    public void setTokenValidityDay(LocalDate tokenValidityDay) {
-        this.tokenValidityDay = tokenValidityDay;
-    }
-
-    public LocalTime getTokenValidityTime() {
-        return tokenValidityTime;
-    }
-
-    public void setTokenValidityTime(LocalTime tokenValidityTime) {
-        this.tokenValidityTime = tokenValidityTime;
+    public void setTokenValidity(Timestamp tokenValidity) {
+        this.tokenValidity = tokenValidity;
     }
 }

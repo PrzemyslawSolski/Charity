@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.CharityApplication;
 import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.email.EmailService;
@@ -146,8 +147,10 @@ public class DonationController {
         String messageText = name + " " + surname + System.getProperty("line.separator")
                 + "Email: " + email + System.getProperty("line.separator")
                 + " przesyła wiadomość: \r\n" + message;
-        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
+        if(CharityApplication.SEND_MAIL) {
+            emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
 //        emailService.sendSimpleMessage("marcin.cieslak@coderslab.pl", "Kontakt z aplikacji", messageText);
+        }
         return "email-confirmation";
     }
 

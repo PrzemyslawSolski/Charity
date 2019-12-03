@@ -12,6 +12,7 @@ import pl.coderslab.charity.email.EmailService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -121,20 +122,26 @@ public class UserController {
     }
 
     @GetMapping("remind/{token}")
+    @ResponseBody
     public String resetPasswordFromToken(@PathVariable String token, HttpSession session) {
         User user = userService.getFirstByToken(token);
+        String message="";
         if (user!=null){
-            if(user.getTokenValidityDay().compareTo(LocalDate.now())>=0
-                && user.getTokenValidityTime().compareTo(LocalTime.now())>=0){
+//            if(user.getTokenValidityDay().compareTo(LocalDate.now())>=0
+//                && user.getTokenValidityTime().compareTo(LocalTime.now())>=0){
+            if(user.getTokenValidity().compareTo(new Timestamp(System.currentTimeMillis()))>=0){
                 //token ok and valid
+                message="token ok";
 
             }else{
                 //token correct but no longer valid
+                message="token ok, but invalid";
             }
         }else{
             //wrong token
+            message="wrong token";
         }
-        return null;
+        return message;
     }
 
 

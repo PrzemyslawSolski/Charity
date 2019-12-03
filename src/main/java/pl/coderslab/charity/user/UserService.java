@@ -3,8 +3,10 @@ package pl.coderslab.charity.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.charity.CharityApplication;
 import pl.coderslab.charity.email.EmailService;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -27,8 +29,9 @@ public class UserService {
     public void generateSaveSendToken(User user){
         String token = userUtil.generateToken(32);
         user.setToken(token);
-        user.setTokenValidityDay(LocalDateTime.now().plusHours(1).toLocalDate());
-        user.setTokenValidityTime(LocalTime.now().plusHours(1));
+//        user.setTokenValidityDay(LocalDateTime.now().plusHours(1).toLocalDate());
+//        user.setTokenValidityTime(LocalTime.now().plusHours(1));
+        user.setTokenValidity(Timestamp.valueOf(LocalDateTime.now().plusHours(1)));
         save(user);
 
         String messageText = "W aplikacji 'Zacznij pomagać' wybrano opcję zmiany zapomnianego hasła. "
@@ -39,8 +42,10 @@ public class UserService {
                 + "Jeżeli wybrałeś opcję zmiany hasła, kliknij poniższy link:"
                 + System.getProperty("line.separator")
                 + "http://" + "localhost:8080/remind/" + token;
+        if(CharityApplication.SEND_MAIL) {
 //        emailService.sendSimpleMessage(user.getEmail(), "Zmiana hasła", messageText);
-//        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
+        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
+        }
     }
 
     public User getFirstByEmail(String email){

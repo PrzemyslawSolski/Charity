@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CharityApplication {
+    public static final boolean SEND_MAIL=false;
 
     public static void main(String[] args) {
+
         SpringApplication.run(CharityApplication.class, args);
     }
 

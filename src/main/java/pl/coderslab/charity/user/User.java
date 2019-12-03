@@ -2,13 +2,10 @@ package pl.coderslab.charity.user;
 
 import javax.persistence.*;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 @Table(name="users")
@@ -26,10 +23,6 @@ public class User {
     @NotEmpty(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
     private String password;
     private String token;
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//    private LocalDate tokenValidityDay;
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-//    private LocalTime tokenValidityTime;
     private Timestamp tokenValidity;
 
 

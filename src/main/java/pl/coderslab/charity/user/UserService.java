@@ -8,7 +8,6 @@ import pl.coderslab.charity.email.EmailService;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -29,8 +28,6 @@ public class UserService {
     public void generateSaveSendToken(User user) {
         String token = userUtil.generateToken(32);
         user.setToken(token);
-//        user.setTokenValidityDay(LocalDateTime.now().plusHours(1).toLocalDate());
-//        user.setTokenValidityTime(LocalTime.now().plusHours(1));
         user.setTokenValidity(Timestamp.valueOf(LocalDateTime.now().plusHours(1)));
         save(user);
 

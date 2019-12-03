@@ -40,7 +40,6 @@ public class UserController {
     }
 
     @PostMapping("/register")
-//    @ResponseBody
     public String registerAction(@RequestParam String password2,
                                  Model model,
                                  @Validated({RegistrationValidationGroup.class}) @ModelAttribute User user,
@@ -62,7 +61,6 @@ public class UserController {
         }
         user.setEmail(user.getEmail().toLowerCase());
         user.setPasswordHash(user.getPassword());
-//        Hibernate.initialize(user.getEvents());
         userService.save(user);
         return "redirect:login";
     }
@@ -106,7 +104,6 @@ public class UserController {
     }
 
     @PostMapping("/remind")
-//    @ResponseBody
     public String remindPasswordPostAction(@RequestParam String email,
                                            Model model,
                                            HttpSession session) {
@@ -115,18 +112,6 @@ public class UserController {
         String messageText = "";
         if (user != null) {
             userService.generateSaveSendToken(user);
-//            String token = userUtil.generateToken(32);
-//
-//            messageText = "W aplikacji 'Zacznij pomagać' wybrano opcję zmiany zapomnianego hasła. "
-//                    + System.getProperty("line.separator")
-//                    + "Jeżeli to nie Ty, nie rób nic."
-//                    + System.getProperty("line.separator")
-//                    + System.getProperty("line.separator")
-//                    + "Jeżeli wybrałeś opcję zmiany hasła, kliknij poniższy link:"
-//                    + System.getProperty("line.separator")
-//                    + "http://" + "localhost:8080/remind/" + token;
-////        emailService.sendSimpleMessage(email, "Zmiana hasła", messageText);
-////        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
         }
         List<String> messages = new ArrayList();
         messages.add("Na adres: " + email);
@@ -137,7 +122,6 @@ public class UserController {
     }
 
     @GetMapping("remind/{token}")
-//    @ResponseBody
     public String resetPasswordFromToken(@PathVariable String token,
                                          Model model,
                                          HttpSession session) {
@@ -152,9 +136,6 @@ public class UserController {
             model.addAttribute("messages", messages);
             return "confirmation";
         }
-//            if(user.getTokenValidityDay().compareTo(LocalDate.now())>=0
-//                && user.getTokenValidityTime().compareTo(LocalTime.now())>=0){
-//        if (user.getTokenValidity().compareTo(new Timestamp(System.currentTimeMillis())) >= 0) {
         if (userUtil.isTokenValid(user)) {
             //token ok and valid
             message = "token ok";

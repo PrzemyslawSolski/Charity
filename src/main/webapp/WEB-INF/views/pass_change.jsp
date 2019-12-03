@@ -28,10 +28,6 @@
 <section id="register" class="login-page">
     <h2>Wprowadź nowe hasło</h2>
     <form:form method="post" id="edit-form" modelAttribute="user">
-<%--            <form:hidden path="name" placeholder="Imię"/>--%>
-<%--            <form:hidden path="id" placeholder="Id"/>--%>
-<%--            <form:hidden path="surname" placeholder="Nazwisko"/>--%>
-<%--            <form:hidden  path="email" placeholder="Email"/>--%>
 
         <div class="form-group">
             <form:input type="password" path="password" placeholder="Hasło"/>
@@ -42,7 +38,6 @@
         </div>
 
         <div class="form-group form-group--buttons">
-<%--            <a href="/login" class="btn btn--without-border">Zaloguj się</a>--%>
             <button class="btn" type="submit">Zmień hasło</button>
         </div>
     </form:form>>

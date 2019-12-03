@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 public class DonationController {
-    final static Logger logger = Logger.getLogger(DonationController.class);
+    private static final Logger logger = Logger.getLogger(DonationController.class);
 
     private final CategoryService categoryService;
     private final DonationService donationService;
@@ -165,7 +165,7 @@ public class DonationController {
                 emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
 //        emailService.sendSimpleMessage("marcin.cieslak@coderslab.pl", "Kontakt z aplikacji", messageText);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("Email not sent", e);
             donationUtil.setEmailErrorMessage(model);
 //            List<String> messages = new ArrayList();

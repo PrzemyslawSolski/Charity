@@ -18,7 +18,11 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    final static Logger logger = Logger.getLogger(UserController.class);
+
+    private static final Logger logger = Logger.getLogger(UserController.class);
+    private static final String EMAIL_REQUIREMENTS =
+            "Hasło musi zawierać conajmniej 8 znaków, małą i wielką literę, cyfrę oraz znak specjalny #?!@$%^&*-";
+    private static final String PASSWORDS_NOT_SAME = "Błędnie powtórzone hasło";
 
     private final UserService userService;
     private final EmailService emailService;
@@ -43,10 +47,10 @@ public class UserController {
                                  @Validated({RegistrationValidationGroup.class}) @ModelAttribute User user,
                                  BindingResult result) {
         if (!user.getPassword().equals(password2)) {
-            result.rejectValue("password", "error.user", "Błędnie powtórzone hasło");
+            result.rejectValue("password", "error.user", PASSWORDS_NOT_SAME);
         }
-        if(!userUtil.isPasswordOk(password2)){
-            result.rejectValue("password", "error.user", "Hasło musi zawierać conajmniej 8 znaków, małą i wielką literę, cyfrę oraz znak specjalny #?!@$%^&*-");
+        if (!userUtil.isPasswordOk(password2)) {
+            result.rejectValue("password", "error.user", EMAIL_REQUIREMENTS);
         }
         if (result.hasErrors()) {
             return "register";
@@ -82,7 +86,7 @@ public class UserController {
                 !BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
             result.addError(new FieldError("user", "password",
                     "Niepoprawny email lub hasło"));
-            logger.info("User: " + existingUser.getEmail() + " entered wrong password");
+            logger.info("User: " + user.getEmail() + " entered wrong password");
             return "login";
         }
         session.setAttribute("userId", existingUser.getId());
@@ -110,7 +114,6 @@ public class UserController {
                                            HttpSession session) {
         userUtil.clearSessionUserData(session);
         User user = userService.getFirstByEmail(email.toLowerCase());
-        String messageText = "";
         if (user != null) {
             userService.generateSaveSendToken(user);
         }
@@ -168,10 +171,10 @@ public class UserController {
                                          HttpSession session) {
         userUtil.clearSessionUserData(session);
         if (!user.getPassword().equals(password2)) {
-            result.rejectValue("password", "error.user", "Błędnie powtórzone hasło");
+            result.rejectValue("password", "error.user", PASSWORDS_NOT_SAME);
         }
-        if(!userUtil.isPasswordOk(password2)){
-            result.rejectValue("password", "error.user", "Hasło musi zawierać conajmniej 8 znaków, małą i wielką literę, cyfrę oraz znak specjalny #?!@$%^&*-");
+        if (!userUtil.isPasswordOk(password2)) {
+            result.rejectValue("password", "error.user", EMAIL_REQUIREMENTS);
         }
         if (result.hasErrors()) {
             return "pass_change";
@@ -197,7 +200,7 @@ public class UserController {
 //        messages.add("Masz błędny lub nieaktualny link.");
 //        messages.add("Sprawdź i spróbuj jeszcze raz.");
 //        model.addAttribute("messages", messages);
-        logger.info("Hijacking attempt. Wrong token posted");
+        logger.info("Hijacking attempt. Wrong token illegally posted");
         return "confirmation";
     }
 

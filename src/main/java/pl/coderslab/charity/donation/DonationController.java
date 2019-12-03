@@ -25,13 +25,15 @@ public class DonationController {
 
     private final CategoryService categoryService;
     private final DonationService donationService;
+    private final DonationUtil donationUtil;
     private final InstitutionService institutionService;
     private final EmailService emailService;
 
     @Autowired
-    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService, EmailService emailService) {
+    public DonationController(CategoryService categoryService, DonationService donationService, DonationUtil donationUtil, InstitutionService institutionService, EmailService emailService) {
         this.categoryService = categoryService;
         this.donationService = donationService;
+        this.donationUtil = donationUtil;
         this.institutionService = institutionService;
         this.emailService = emailService;
     }
@@ -50,7 +52,7 @@ public class DonationController {
                                @ModelAttribute CategoryContainer categoryContainer,
 //                               @ModelAttribute List<Category> categories,
                                BindingResult result) {
-        if (donationService.numberOfSelectedCategories(categoryContainer) == 0) {
+        if (donationUtil.numberOfSelectedCategories(categoryContainer) == 0) {
 //        if (donationService.numberOfSelectedCategories(categories) == 0) {
             result.addError(new FieldError("categoryContainer", "categories",
                     "Musisz wybrać conajmniej jedną pozycję"));
@@ -58,7 +60,7 @@ public class DonationController {
         if (result.hasErrors()) {
             return "categories";
         }
-        session.setAttribute("categoriesIds", donationService.getSelectedCategoriesIds(categoryContainer));
+        session.setAttribute("categoriesIds", donationUtil.getSelectedCategoriesIds(categoryContainer));
 //        session.setAttribute("categoriesIds", donationService.getSelectedCategoriesIds(categories));
         return "redirect:quantity#data";
     }
@@ -119,7 +121,7 @@ public class DonationController {
     @GetMapping("/summary")
     public String summaryAction(Model model, HttpSession session) {
         Donation donation = donationService.collectDonationFromSession(session);
-        String form = donationService.getFirstFormWithWrongData(donation);
+        String form = donationUtil.getFirstFormWithWrongData(donation);
         if (form != null) {
             return "redirect:" + form + "#data";
         }
@@ -129,12 +131,12 @@ public class DonationController {
 
     @PostMapping("/summary")
     public String summaryAction(Model model, HttpSession session, @ModelAttribute Donation donation, BindingResult result) {
-        String form = donationService.getFirstFormWithWrongData(donation);
+        String form = donationUtil.getFirstFormWithWrongData(donation);
         if (form != null) {
             return "redirect:" + form + "#data";
         }
         donationService.save(donation);
-        donationService.clearSessionDeliveryData(session);
+        donationUtil.clearSessionDeliveryData(session);
         return "redirect:confirmation";
     }
 

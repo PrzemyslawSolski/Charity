@@ -19,6 +19,14 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    /**
+     * Returns collection List of Categories containing only items
+     * for which session contains their id, meaning they were selected
+     * on the first form
+     * @param session
+     * @return List<Category> if session contains 'categoriesIds' attribute
+     *          or null otherwise
+     */
     public List<Category> getCategoriesFromSession(HttpSession session) {
         List<Category> categories = new ArrayList<>();
         long[] categoriesIds = (long[])session.getAttribute("categoriesIds");
@@ -34,6 +42,14 @@ public class CategoryService {
         }
     }
 
+
+    /**
+     * Returns list of all categories stored in DB with properly set 'chosen'
+     * for the once selected in the first form
+     *
+     * @param session
+     * @return List<Category> with 'chosen' field correctly set
+     */
     public List<Category> getCategoriesWithSelectedFromSession(HttpSession session) {
         List<Category> categoriesChosen = getCategoriesFromSession(session);
         List<Category> categoriesAll = findAll();

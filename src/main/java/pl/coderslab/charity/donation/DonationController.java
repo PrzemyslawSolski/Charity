@@ -1,5 +1,6 @@
 package pl.coderslab.charity.donation;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ import java.util.List;
 
 @Controller
 public class DonationController {
+    final static Logger logger = Logger.getLogger(DonationController.class);
+
     private final CategoryService categoryService;
     private final DonationService donationService;
     private final InstitutionService institutionService;
@@ -150,13 +153,23 @@ public class DonationController {
                                 @RequestParam String message,
                                 @RequestParam String email,
                                 Model model
-                                ) {
+    ) {
         String messageText = name + " " + surname + System.getProperty("line.separator")
                 + "Email: " + email + System.getProperty("line.separator")
                 + " przesyła wiadomość: \r\n" + message;
-        if(CharityApplication.SEND_MAIL) {
-            emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
+        try {
+            if (CharityApplication.SEND_MAIL) {
+                emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
 //        emailService.sendSimpleMessage("marcin.cieslak@coderslab.pl", "Kontakt z aplikacji", messageText);
+            }
+        }catch (Exception e){
+            logger.error("Email not sent", e);
+            List<String> messages = new ArrayList();
+            messages.add("Oooops! Coś poszło nie tak.");
+            messages.add("Nieudana wysyłka maila.");
+            messages.add("Spróbuj ponownie za chwilę.");
+            model.addAttribute("messages", messages);
+            return "confirmation";
         }
         List<String> messages = new ArrayList();
         messages.add("Dziękujemy za kontakt.");

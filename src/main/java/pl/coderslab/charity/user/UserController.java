@@ -114,11 +114,12 @@ public class UserController {
         if (user != null) {
             userService.generateSaveSendToken(user);
         }
-        List<String> messages = new ArrayList();
-        messages.add("Na adres: " + email);
-        messages.add("został wysłany link do zmiany hasła.");
-        messages.add("Nie zapomnij sprawdzić folderu spam w Twojej poczcie.");
-        model.addAttribute("messages", messages);
+        userUtil.setTokenSentMessage(model, email);
+//        List<String> messages = new ArrayList();
+//        messages.add("Na adres: " + email);
+//        messages.add("został wysłany link do zmiany hasła.");
+//        messages.add("Nie zapomnij sprawdzić folderu spam w Twojej poczcie.");
+//        model.addAttribute("messages", messages);
         logger.info("User: " + user.getEmail() + " requested password reminder");
         return "confirmation";
     }
@@ -130,11 +131,12 @@ public class UserController {
         userUtil.clearSessionUserData(session);
         User user = userService.getFirstByToken(token);
         if (user == null) {
-            List<String> messages = new ArrayList();
-            messages.add("Oooops!");
-            messages.add("coś poszło nie tak...");
-            messages.add("Sprawdź link i spróbuj jeszcze raz.");
-            model.addAttribute("messages", messages);
+            userUtil.setWrongTokenMessage(model);
+//            List<String> messages = new ArrayList();
+//            messages.add("Oooops!");
+//            messages.add("coś poszło nie tak...");
+//            messages.add("Sprawdź link i spróbuj jeszcze raz.");
+//            model.addAttribute("messages", messages);
             logger.info("Entered incorrect token: " + token);
             return "confirmation";
         }
@@ -146,11 +148,12 @@ public class UserController {
 
         } else {
             //token correct but no longer valid
-            List<String> messages = new ArrayList();
-            messages.add("Oooops!");
-            messages.add("Twój link stracił ważność.");
-            messages.add("Spróbuj jeszcze raz.");
-            model.addAttribute("messages", messages);
+            userUtil.setNoLongerValidTokenMessage(model);
+//            List<String> messages = new ArrayList();
+//            messages.add("Oooops!");
+//            messages.add("Twój link stracił ważność.");
+//            messages.add("Spróbuj jeszcze raz.");
+//            model.addAttribute("messages", messages);
             logger.info("Used invalidated token: " + token);
             return "confirmation";
         }
@@ -179,19 +182,21 @@ public class UserController {
         ) {
             existingUser.setPasswordHash(password2);
             userService.save(existingUser);
-            List<String> messages = new ArrayList();
-            messages.add("Hasło zostało zmienione.");
-            messages.add("Teraz możesz przejść do strony logowania");
-            messages.add("i zalogować się nowym hasłem.");
-            model.addAttribute("messages", messages);
+            userUtil.setPassChangedMessage(model);
+//            List<String> messages = new ArrayList();
+//            messages.add("Hasło zostało zmienione.");
+//            messages.add("Teraz możesz przejść do strony logowania");
+//            messages.add("i zalogować się nowym hasłem.");
+//            model.addAttribute("messages", messages);
             logger.info("User: " + existingUser.getEmail() + " changed password by reminder");
             return "confirmation";
         }
-        List<String> messages = new ArrayList();
-        messages.add("Ooops!");
-        messages.add("Masz błędny lub nieaktualny link.");
-        messages.add("Sprawdź i spróbuj jeszcze raz.");
-        model.addAttribute("messages", messages);
+        userUtil.setWrongOrInvalidTokenMessage(model);
+//        List<String> messages = new ArrayList();
+//        messages.add("Ooops!");
+//        messages.add("Masz błędny lub nieaktualny link.");
+//        messages.add("Sprawdź i spróbuj jeszcze raz.");
+//        model.addAttribute("messages", messages);
         logger.info("Hijacking attempt. Wrong token posted");
         return "confirmation";
     }

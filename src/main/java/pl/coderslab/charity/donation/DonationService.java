@@ -105,7 +105,7 @@ public class DonationService {
         return null;
     }
 
-    public void clearSessionData(HttpSession session) {
+    public void clearSessionDeliveryData(HttpSession session) {
         session.removeAttribute("donation");
         session.removeAttribute("quantity");
         session.removeAttribute("institutionId");

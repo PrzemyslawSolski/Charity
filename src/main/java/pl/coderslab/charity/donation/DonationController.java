@@ -131,7 +131,7 @@ public class DonationController {
             return "redirect:" + form + "#data";
         }
         donationService.save(donation);
-        donationService.clearSessionData(session);
+        donationService.clearSessionDeliveryData(session);
         return "redirect:confirmation";
     }
 

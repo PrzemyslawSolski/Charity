@@ -2,6 +2,9 @@ package pl.coderslab.charity.user;
 
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+
 @Component
 public class UserUtil {
 
@@ -18,5 +21,14 @@ public class UserUtil {
             }
         } while (token.length() < tokenLength);
         return token.toString();
+    }
+
+    public boolean isTokenValid(User user){
+        return user.getTokenValidity().compareTo(new Timestamp(System.currentTimeMillis())) >= 0;
+    }
+
+    public void clearSessionUserData(HttpSession session){
+        session.removeAttribute("userId");
+        session.removeAttribute("firstName");
     }
 }

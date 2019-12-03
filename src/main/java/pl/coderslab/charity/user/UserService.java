@@ -48,6 +48,8 @@ public class UserService {
         }
     }
 
+
+
     public User getFirstByEmail(String email){
         return userRepository.findFirstByEmail(email.toLowerCase());
     }

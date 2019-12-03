@@ -97,16 +97,20 @@ public class UserController {
     }
 
     @GetMapping("/remind")
-    public String remindPasswordAction() {
+    public String remindPasswordAction(HttpSession session) {
+        userUtil.clearSessionUserData(session);
         return "remind";
     }
 
     @PostMapping("/remind")
 //    @ResponseBody
-    public String remindPasswordPostAction(@RequestParam String email, Model model) {
+    public String remindPasswordPostAction(@RequestParam String email,
+                                           Model model,
+                                           HttpSession session) {
+        userUtil.clearSessionUserData(session);
         User user = userService.getFirstByEmail(email.toLowerCase());
-        String messageText="";
-        if(user!=null) {
+        String messageText = "";
+        if (user != null) {
             userService.generateSaveSendToken(user);
 //            String token = userUtil.generateToken(32);
 //
@@ -130,27 +134,77 @@ public class UserController {
     }
 
     @GetMapping("remind/{token}")
-    @ResponseBody
-    public String resetPasswordFromToken(@PathVariable String token, HttpSession session) {
+//    @ResponseBody
+    public String resetPasswordFromToken(@PathVariable String token,
+                                         Model model,
+                                         HttpSession session) {
+        userUtil.clearSessionUserData(session);
         User user = userService.getFirstByToken(token);
-        String message="";
-        if (user!=null){
+        String message = "";
+        if (user == null) {
+            List<String> messages = new ArrayList();
+            messages.add("Oooops!");
+            messages.add("coś poszło nie tak...");
+            messages.add("Sprawdź link i spróbuj jeszcze raz.");
+            model.addAttribute("messages", messages);
+            return "confirmation";
+        }
 //            if(user.getTokenValidityDay().compareTo(LocalDate.now())>=0
 //                && user.getTokenValidityTime().compareTo(LocalTime.now())>=0){
-            if(user.getTokenValidity().compareTo(new Timestamp(System.currentTimeMillis()))>=0){
-                //token ok and valid
-                message="token ok";
+//        if (user.getTokenValidity().compareTo(new Timestamp(System.currentTimeMillis())) >= 0) {
+        if (userUtil.isTokenValid(user)) {
+            //token ok and valid
+            message = "token ok";
+            user.setPassword("");
+            model.addAttribute("user", user);
+            return "pass_change";
 
-            }else{
-                //token correct but no longer valid
-                message="token ok, but invalid";
-            }
-        }else{
-            //wrong token
-            message="wrong token";
+        } else {
+            //token correct but no longer valid
+            message = "token ok, but invalid";
+            List<String> messages = new ArrayList();
+            messages.add("Oooops!");
+            messages.add("Twój link stracił ważność.");
+            messages.add("Spróbuj jeszcze raz.");
+            model.addAttribute("messages", messages);
+            return "confirmation";
         }
-        return message;
     }
 
+    @PostMapping("remind/{token}")
+    public String resetPasswordFromToken(@PathVariable String token,
+                                         @RequestParam String password2,
+                                         @ModelAttribute User user,
+                                         BindingResult result,
+                                         Model model,
+                                         HttpSession session) {
+        userUtil.clearSessionUserData(session);
+        if (!user.getPassword().equals(password2)) {
+            result.rejectValue("password", "error.user", "Błędnie powtórzone hasło");
+        }
+        if (result.hasErrors()) {
+            return "pass_change";
+        }
+        User existingUser = userService.getFirstByToken(token);
+        if (existingUser != null
+                && userUtil.isTokenValid(existingUser)
+        ) {
+            existingUser.setPasswordHash(password2);
+            userService.save(existingUser);
+            List<String> messages = new ArrayList();
+            messages.add("Hasło zostało zmienione.");
+            messages.add("Teraz możesz przejść do strony logowania");
+            messages.add("i zalogować się nowym hasłem.");
+            model.addAttribute("messages", messages);
+            return "confirmation";
+        }
+        List<String> messages = new ArrayList();
+        messages.add("Ooops!");
+        messages.add("Masz błędny lub nieaktualny link.");
+        messages.add("Sprawdź i spróbuj jeszcze raz.");
+        model.addAttribute("messages", messages);
+
+        return "confirmation";
+    }
 
 }

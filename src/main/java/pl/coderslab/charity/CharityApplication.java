@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CharityApplication {
     public static final boolean SEND_MAIL=false;
-    final static Logger logger = Logger.getLogger(CharityApplication.class);
+    private static final  Logger logger = Logger.getLogger(CharityApplication.class);
 
     public static void main(String[] args) {
         if(logger.isInfoEnabled()){

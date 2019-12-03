@@ -16,8 +16,6 @@ import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class DonationController {
@@ -143,10 +141,6 @@ public class DonationController {
     @GetMapping("/confirmation")
     public String confirmationAction(Model model) {
         donationUtil.setFormAcceptedMessage(model);
-//        List<String> messages = new ArrayList();
-//        messages.add("Dziękujemy za przesłanie formularza.");
-//        messages.add("Na maila prześlemy wszelkie informacje o odbiorze.");
-//        model.addAttribute("messages", messages);
         return "confirmation";
     }
 
@@ -168,18 +162,9 @@ public class DonationController {
         } catch (Exception e) {
             logger.error("Email not sent", e);
             donationUtil.setEmailErrorMessage(model);
-//            List<String> messages = new ArrayList();
-//            messages.add("Oooops! Coś poszło nie tak.");
-//            messages.add("Nieudana wysyłka maila.");
-//            messages.add("Spróbuj ponownie za chwilę.");
-//            model.addAttribute("messages", messages);
             return "confirmation";
         }
         donationUtil.setEmilOkMessage(model);
-//        List<String> messages = new ArrayList();
-//        messages.add("Dziękujemy za kontakt.");
-//        messages.add("Na pytania odpowiadamy w ciągu 24 godzin.");
-//        model.addAttribute("messages", messages);
         return "confirmation";
     }
 

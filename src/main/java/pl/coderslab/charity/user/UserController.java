@@ -9,12 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.email.EmailService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -25,13 +22,11 @@ public class UserController {
     private static final String PASSWORDS_NOT_SAME = "Błędnie powtórzone hasło";
 
     private final UserService userService;
-    private final EmailService emailService;
     private final UserUtil userUtil;
 
     @Autowired
-    public UserController(UserService userService, EmailService emailService, UserUtil userUtil) {
+    public UserController(UserService userService, UserUtil userUtil) {
         this.userService = userService;
-        this.emailService = emailService;
         this.userUtil = userUtil;
     }
 
@@ -118,11 +113,6 @@ public class UserController {
             userService.generateSaveSendToken(user);
         }
         userUtil.setTokenSentMessage(model, email);
-//        List<String> messages = new ArrayList();
-//        messages.add("Na adres: " + email);
-//        messages.add("został wysłany link do zmiany hasła.");
-//        messages.add("Nie zapomnij sprawdzić folderu spam w Twojej poczcie.");
-//        model.addAttribute("messages", messages);
         logger.info("User: " + email + " requested password reminder");
         return "confirmation";
     }
@@ -135,11 +125,6 @@ public class UserController {
         User user = userService.getFirstByToken(token);
         if (user == null) {
             userUtil.setWrongTokenMessage(model);
-//            List<String> messages = new ArrayList();
-//            messages.add("Oooops!");
-//            messages.add("coś poszło nie tak...");
-//            messages.add("Sprawdź link i spróbuj jeszcze raz.");
-//            model.addAttribute("messages", messages);
             logger.info("Entered incorrect token: " + token);
             return "confirmation";
         }
@@ -152,11 +137,6 @@ public class UserController {
         } else {
             //token correct but no longer valid
             userUtil.setNoLongerValidTokenMessage(model);
-//            List<String> messages = new ArrayList();
-//            messages.add("Oooops!");
-//            messages.add("Twój link stracił ważność.");
-//            messages.add("Spróbuj jeszcze raz.");
-//            model.addAttribute("messages", messages);
             logger.info("Used invalidated token: " + token);
             return "confirmation";
         }
@@ -186,20 +166,10 @@ public class UserController {
             existingUser.setPasswordHash(password2);
             userService.save(existingUser);
             userUtil.setPassChangedMessage(model);
-//            List<String> messages = new ArrayList();
-//            messages.add("Hasło zostało zmienione.");
-//            messages.add("Teraz możesz przejść do strony logowania");
-//            messages.add("i zalogować się nowym hasłem.");
-//            model.addAttribute("messages", messages);
             logger.info("User: " + existingUser.getEmail() + " changed password by reminder");
             return "confirmation";
         }
         userUtil.setWrongOrInvalidTokenMessage(model);
-//        List<String> messages = new ArrayList();
-//        messages.add("Ooops!");
-//        messages.add("Masz błędny lub nieaktualny link.");
-//        messages.add("Sprawdź i spróbuj jeszcze raz.");
-//        model.addAttribute("messages", messages);
         logger.info("Hijacking attempt. Wrong token illegally posted");
         return "confirmation";
     }

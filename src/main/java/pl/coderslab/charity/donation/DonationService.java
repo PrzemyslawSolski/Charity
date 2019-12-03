@@ -3,16 +3,12 @@ package pl.coderslab.charity.donation;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderslab.charity.category.Category;
-import pl.coderslab.charity.category.CategoryContainer;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -52,8 +48,6 @@ public class DonationService {
         }
         return donation;
     }
-
-
 
     public long getTotalQuantity() {
         return donationRepository.getTotalQuantity();

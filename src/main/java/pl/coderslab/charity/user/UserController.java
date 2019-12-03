@@ -123,7 +123,7 @@ public class UserController {
 //        messages.add("został wysłany link do zmiany hasła.");
 //        messages.add("Nie zapomnij sprawdzić folderu spam w Twojej poczcie.");
 //        model.addAttribute("messages", messages);
-        logger.info("User: " + user.getEmail() + " requested password reminder");
+        logger.info("User: " + email + " requested password reminder");
         return "confirmation";
     }
 

@@ -1,11 +1,13 @@
 package pl.coderslab.charity.donation;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryContainer;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,6 +84,28 @@ public class DonationUtil {
             return false;
         }
         return true;
+    }
+
+    public void setFormAcceptedMessage(Model model){
+        List<String> messages = new ArrayList();
+        messages.add("Dziękujemy za przesłanie formularza.");
+        messages.add("Na maila prześlemy wszelkie informacje o odbiorze.");
+        model.addAttribute("messages", messages);
+    }
+
+    public void setEmilOkMessage(Model model){
+        List<String> messages = new ArrayList();
+        messages.add("Dziękujemy za kontakt.");
+        messages.add("Na pytania odpowiadamy w ciągu 24 godzin.");
+        model.addAttribute("messages", messages);
+    }
+
+    public void setEmailErrorMessage(Model model){
+        List<String> messages = new ArrayList();
+        messages.add("Oooops! Coś poszło nie tak.");
+        messages.add("Nieudana wysyłka maila.");
+        messages.add("Spróbuj ponownie za chwilę.");
+        model.addAttribute("messages", messages);
     }
 
 }

@@ -142,10 +142,11 @@ public class DonationController {
 
     @GetMapping("/confirmation")
     public String confirmationAction(Model model) {
-        List<String> messages = new ArrayList();
-        messages.add("Dziękujemy za przesłanie formularza.");
-        messages.add("Na maila prześlemy wszelkie informacje o odbiorze.");
-        model.addAttribute("messages", messages);
+        donationUtil.setFormAcceptedMessage(model);
+//        List<String> messages = new ArrayList();
+//        messages.add("Dziękujemy za przesłanie formularza.");
+//        messages.add("Na maila prześlemy wszelkie informacje o odbiorze.");
+//        model.addAttribute("messages", messages);
         return "confirmation";
     }
 
@@ -166,17 +167,19 @@ public class DonationController {
             }
         }catch (Exception e){
             logger.error("Email not sent", e);
-            List<String> messages = new ArrayList();
-            messages.add("Oooops! Coś poszło nie tak.");
-            messages.add("Nieudana wysyłka maila.");
-            messages.add("Spróbuj ponownie za chwilę.");
-            model.addAttribute("messages", messages);
+            donationUtil.setEmailErrorMessage(model);
+//            List<String> messages = new ArrayList();
+//            messages.add("Oooops! Coś poszło nie tak.");
+//            messages.add("Nieudana wysyłka maila.");
+//            messages.add("Spróbuj ponownie za chwilę.");
+//            model.addAttribute("messages", messages);
             return "confirmation";
         }
-        List<String> messages = new ArrayList();
-        messages.add("Dziękujemy za kontakt.");
-        messages.add("Na pytania odpowiadamy w ciągu 24 godzin.");
-        model.addAttribute("messages", messages);
+        donationUtil.setEmilOkMessage(model);
+//        List<String> messages = new ArrayList();
+//        messages.add("Dziękujemy za kontakt.");
+//        messages.add("Na pytania odpowiadamy w ciągu 24 godzin.");
+//        model.addAttribute("messages", messages);
         return "confirmation";
     }
 

@@ -48,6 +48,9 @@ public class UserController {
         if (!user.getPassword().equals(password2)) {
             result.rejectValue("password", "error.user", "Błędnie powtórzone hasło");
         }
+        if(!userUtil.isPasswordOk(password2)){
+            result.rejectValue("password", "error.user", "Hasło musi zawierać conajmniej 8 znaków, małą i wielką literę, cyfrę oraz znak specjalny #?!@$%^&*-");
+        }
         if (result.hasErrors()) {
             return "register";
         }
@@ -181,6 +184,9 @@ public class UserController {
         userUtil.clearSessionUserData(session);
         if (!user.getPassword().equals(password2)) {
             result.rejectValue("password", "error.user", "Błędnie powtórzone hasło");
+        }
+        if(!userUtil.isPasswordOk(password2)){
+            result.rejectValue("password", "error.user", "Hasło musi zawierać conajmniej 8 znaków, małą i wielką literę, cyfrę oraz znak specjalny #?!@$%^&*-");
         }
         if (result.hasErrors()) {
             return "pass_change";

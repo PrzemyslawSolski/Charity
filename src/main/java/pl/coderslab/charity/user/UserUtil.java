@@ -27,6 +27,10 @@ public class UserUtil {
         return user.getTokenValidity().compareTo(new Timestamp(System.currentTimeMillis())) >= 0;
     }
 
+    public boolean isPasswordOk(String password) {
+        return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+    }
+
     public void clearSessionUserData(HttpSession session){
         session.removeAttribute("userId");
         session.removeAttribute("firstName");

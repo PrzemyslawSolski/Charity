@@ -26,7 +26,7 @@ public class UserService {
         this.emailService = emailService;
     }
 
-    public void generateSaveSendToken(User user){
+    public void generateSaveSendToken(User user) {
         String token = userUtil.generateToken(32);
         user.setToken(token);
 //        user.setTokenValidityDay(LocalDateTime.now().plusHours(1).toLocalDate());
@@ -42,19 +42,18 @@ public class UserService {
                 + "Jeżeli wybrałeś opcję zmiany hasła, kliknij poniższy link:"
                 + System.getProperty("line.separator")
                 + "http://" + "localhost:8080/remind/" + token;
-        if(CharityApplication.SEND_MAIL) {
+        if (CharityApplication.SEND_MAIL) {
 //        emailService.sendSimpleMessage(user.getEmail(), "Zmiana hasła", messageText);
-        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
+            emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
         }
     }
 
 
-
-    public User getFirstByEmail(String email){
+    public User getFirstByEmail(String email) {
         return userRepository.findFirstByEmail(email.toLowerCase());
     }
 
-    public User getFirstByToken(String token){
+    public User getFirstByToken(String token) {
         return userRepository.findFirstByToken(token);
     }
 

@@ -15,6 +15,8 @@ import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class DonationController {
@@ -134,15 +136,20 @@ public class DonationController {
     }
 
     @GetMapping("/confirmation")
-    public String confirmationAction() {
-        return "form-confirmation";
+    public String confirmationAction(Model model) {
+        List<String> messages = new ArrayList();
+        messages.add("Dziękujemy za przesłanie formularza.");
+        messages.add("Na maila prześlemy wszelkie informacje o odbiorze.");
+        model.addAttribute("messages", messages);
+        return "confirmation";
     }
 
     @PostMapping("/email")
     public String emailSendPost(@RequestParam String name,
                                 @RequestParam String surname,
                                 @RequestParam String message,
-                                @RequestParam String email
+                                @RequestParam String email,
+                                Model model
                                 ) {
         String messageText = name + " " + surname + System.getProperty("line.separator")
                 + "Email: " + email + System.getProperty("line.separator")
@@ -151,7 +158,11 @@ public class DonationController {
             emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Kontakt z aplikacji", messageText);
 //        emailService.sendSimpleMessage("marcin.cieslak@coderslab.pl", "Kontakt z aplikacji", messageText);
         }
-        return "email-confirmation";
+        List<String> messages = new ArrayList();
+        messages.add("Dziękujemy za kontakt.");
+        messages.add("Na pytania odpowiadamy w ciągu 24 godzin.");
+        model.addAttribute("messages", messages);
+        return "confirmation";
     }
 
 }

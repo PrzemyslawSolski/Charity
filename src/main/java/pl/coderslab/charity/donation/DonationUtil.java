@@ -14,14 +14,30 @@ import java.util.stream.Collectors;
 @Component
 public class DonationUtil {
 
+
+    /**
+     * Returns number of categories selected on the first form
+     * @param categoryContainer
+     * @return number of selected categories
+     */
     public int numberOfSelectedCategories(CategoryContainer categoryContainer) {
         return (int) categoryContainer.getCategories().stream().filter(Category::isChosen).count();
     }
 
+    /**
+     * Returns number of categories selected on the first form
+     * @param categories
+     * @return number of selected categories
+     */
     public int numberOfSelectedCategories(List<Category> categories) {
-        return categories.stream().filter(Category::isChosen).collect(Collectors.toList()).size();
+        return (int) categories.stream().filter(Category::isChosen).count();
     }
 
+    /**
+     * Returns array of selected categories ids to be stored in the session
+     * @param categoryContainer
+     * @return array of selected categories ids
+     */
     public long[] getSelectedCategoriesIds(CategoryContainer categoryContainer) {
         int noOfSelectedCategories = numberOfSelectedCategories(categoryContainer);
 //        List<Category> categories = categoryContainer.getCategories();
@@ -34,6 +50,12 @@ public class DonationUtil {
         return selectedCategoriesIds;
     }
 
+
+    /**
+     * Returns array of selected categories ids to be stored in the session
+     * @param categories
+     * @return array of selected categories ids
+     */
     public long[] getSelectedCategoriesIds(List<Category> categories) {
         int noOfSelectedCategories = numberOfSelectedCategories(categories);
 //        List<Category> categories = categoryContainer.getCategories();
@@ -47,8 +69,9 @@ public class DonationUtil {
     }
 
     /**
+     * Finds missing donation data and return name of the first form where data need to be filled
      * @param donation
-     * @return
+     * @return name of the form to which needs to be redirected
      */
     public String getFirstFormWithWrongData(Donation donation) {
         if (donation.getCategories() == null || donation.getCategories().isEmpty()) {
@@ -66,6 +89,11 @@ public class DonationUtil {
         return null;
     }
 
+
+    /**
+     * Clears from session all data related to the donation
+     * @param session
+     */
     public void clearSessionDeliveryData(HttpSession session) {
         session.removeAttribute("donation");
         session.removeAttribute("quantity");
@@ -73,6 +101,12 @@ public class DonationUtil {
         session.removeAttribute("categoriesIds");
     }
 
+
+    /**
+     * Checks data posted against data injection
+     * @param donation
+     * @return true if data for donation are complete and correct
+     */
     public boolean isDeliveryCorrect(Donation donation) {
         if (donation.getCity() == null || donation.getCity().isEmpty()
                 || donation.getPhoneNumber() == null || donation.getPhoneNumber().isEmpty()
@@ -86,6 +120,10 @@ public class DonationUtil {
         return true;
     }
 
+    /**
+     * Sets in model message to be presented when form is stored in DB
+     * @param model
+     */
     public void setFormAcceptedMessage(Model model){
         List<String> messages = new ArrayList();
         messages.add("Dziękujemy za przesłanie formularza.");
@@ -93,6 +131,10 @@ public class DonationUtil {
         model.addAttribute("messages", messages);
     }
 
+    /**
+     * Sets in model message to be presented when email was sent
+     * @param model
+     */
     public void setEmilOkMessage(Model model){
         List<String> messages = new ArrayList();
         messages.add("Dziękujemy za kontakt.");
@@ -100,6 +142,10 @@ public class DonationUtil {
         model.addAttribute("messages", messages);
     }
 
+    /**
+     * Sets in model message to be presented when email was not sent
+     * @param model
+     */
     public void setEmailErrorMessage(Model model){
         List<String> messages = new ArrayList();
         messages.add("Oooops! Coś poszło nie tak.");

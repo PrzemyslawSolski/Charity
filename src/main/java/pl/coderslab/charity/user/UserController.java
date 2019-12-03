@@ -10,11 +10,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.email.EmailService;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -99,8 +102,8 @@ public class UserController {
     }
 
     @PostMapping("/remind")
-    @ResponseBody
-    public String remindPasswordPostAction(@RequestParam String email) {
+//    @ResponseBody
+    public String remindPasswordPostAction(@RequestParam String email, Model model) {
         User user = userService.getFirstByEmail(email.toLowerCase());
         String messageText="";
         if(user!=null) {
@@ -118,7 +121,12 @@ public class UserController {
 ////        emailService.sendSimpleMessage(email, "Zmiana hasła", messageText);
 ////        emailService.sendSimpleMessage("psolski@poczta.onet.pl", "Zmiana hasła", messageText);
         }
-        return messageText;
+        List<String> messages = new ArrayList();
+        messages.add("Na adres: " + email);
+        messages.add("został wysłany link do zmiany hasła.");
+        messages.add("Nie zapomnij sprawdzić folderu spam w Twojej poczcie.");
+        model.addAttribute("messages", messages);
+        return "confirmation";
     }
 
     @GetMapping("remind/{token}")

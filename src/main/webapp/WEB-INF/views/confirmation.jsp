@@ -12,8 +12,8 @@
 <body>
 <header class="header--form-page">
     <nav class="container container--70">
-        <ul class="nav--actions"></ul>
-        <%--        <%@ include file="user_menu.jsp" %>--%>
+        <%--        <ul class="nav--actions"></ul>--%>
+        <%@ include file="user_menu.jsp" %>
 
         <%@ include file="header.jsp" %>
     </nav>

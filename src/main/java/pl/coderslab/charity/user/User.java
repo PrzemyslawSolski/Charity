@@ -2,10 +2,12 @@ package pl.coderslab.charity.user;
 
 import javax.persistence.*;
 import org.mindrot.jbcrypt.BCrypt;
+import pl.coderslab.charity.role.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -22,6 +24,14 @@ public class User {
     private String email;
     @NotEmpty(groups={RegistrationValidationGroup.class, LoginValidationGroup.class})
     private String password;
+    private int active;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role"
+//            ,
+//            joinColumns = @JoinColumn(name = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "id")
+    )
+    private Set<Role> roles;
     private String token;
     private Timestamp tokenValidity;
 
@@ -85,5 +95,21 @@ public class User {
 
     public void setTokenValidity(Timestamp tokenValidity) {
         this.tokenValidity = tokenValidity;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

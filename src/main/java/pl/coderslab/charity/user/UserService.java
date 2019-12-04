@@ -5,9 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.charity.CharityApplication;
 import pl.coderslab.charity.email.EmailService;
+import pl.coderslab.charity.role.Role;
+import pl.coderslab.charity.role.RoleRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -16,12 +20,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserUtil userUtil;
+    private final RoleRepository roleRepository;
     private final EmailService emailService;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserUtil userUtil, EmailService emailService) {
+    public UserService(UserRepository userRepository, UserUtil userUtil, RoleRepository roleRepository, EmailService emailService) {
         this.userRepository = userRepository;
         this.userUtil = userUtil;
+        this.roleRepository = roleRepository;
         this.emailService = emailService;
     }
 
@@ -50,11 +56,22 @@ public class UserService {
         return userRepository.findFirstByEmail(email.toLowerCase());
     }
 
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email.toLowerCase());
+    }
+
     public User getFirstByToken(String token) {
         return userRepository.findFirstByToken(token);
     }
 
     public void save(User user) {
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        if (user.getRoles() == null) {
+//            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+            user.setRoles(new HashSet<Role>());
+        }
+        user.getRoles().add(userRole);
         userRepository.save(user);
     }
 

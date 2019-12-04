@@ -1,5 +1,6 @@
 package pl.coderslab.charity.user;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -13,21 +14,10 @@ public class UserUtil {
     /**
      * Generates token of random characters of a defined length
      * @param tokenLength length of a token to be generated
-     * @return String of random characters
+     * @return String of random alphanumeric characters
      */
     public String generateToken(int tokenLength) {
-        StringBuilder token = new StringBuilder();
-        int code;
-        do {
-            code = (int) (1.0 * 93 * Math.random()) + 33;
-            if ((code >= '0' && code <= '9')
-                    || (code >= 'A' && code <= 'Z')
-                    || (code >= 'a' && code <= 'z')
-            ) {
-                token.append((char)code);
-            }
-        } while (token.length() < tokenLength);
-        return token.toString();
+        return RandomStringUtils.randomAlphanumeric(tokenLength);
     }
 
     /**

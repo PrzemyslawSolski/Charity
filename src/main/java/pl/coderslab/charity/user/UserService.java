@@ -10,7 +10,6 @@ import pl.coderslab.charity.role.RoleRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 

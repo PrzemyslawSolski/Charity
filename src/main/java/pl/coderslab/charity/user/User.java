@@ -2,6 +2,7 @@ package pl.coderslab.charity.user;
 
 import javax.persistence.*;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.coderslab.charity.role.Role;
 
 import javax.validation.constraints.Email;
@@ -38,6 +39,7 @@ public class User {
 
     public void setPasswordHash(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+//        this.password = BCryptPasswordEncoder.encode(password);
     }
 
     public long getId() {

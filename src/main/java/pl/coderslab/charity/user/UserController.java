@@ -3,6 +3,9 @@ package pl.coderslab.charity.user;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +26,13 @@ public class UserController {
 
     private final UserService userService;
     private final UserUtil userUtil;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserService userService, UserUtil userUtil) {
+    public UserController(UserService userService, UserUtil userUtil, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.userUtil = userUtil;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping("/register")
@@ -57,7 +62,8 @@ public class UserController {
             return "register";
         }
         user.setEmail(user.getEmail().toLowerCase());
-        user.setPasswordHash(user.getPassword());
+//        user.setPasswordHash(user.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.save(user);
         logger.info("User: " + user.getEmail() + " registered");
         return "redirect:login";
@@ -88,6 +94,18 @@ public class UserController {
         session.setAttribute("firstName", existingUser.getName());
         logger.info("User: " + existingUser.getEmail() + " logged in");
         return "redirect:/";
+    }
+
+    @GetMapping("/loginok")
+    public String loginOkAction(HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        if(user!=null){
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("firstName", user.getName());
+            logger.info("User: " + user.getEmail() + " logged in");
+        }
+        return "redirect:donate";
     }
 
 
@@ -163,7 +181,8 @@ public class UserController {
         if (existingUser != null
                 && userUtil.isTokenValid(existingUser)
         ) {
-            existingUser.setPasswordHash(password2);
+//            existingUser.setPasswordHash(password2);
+            existingUser.setPassword(bCryptPasswordEncoder.encode(password2));
             userService.save(existingUser);
             userUtil.setPassChangedMessage(model);
             logger.info("User: " + existingUser.getEmail() + " changed password by reminder");

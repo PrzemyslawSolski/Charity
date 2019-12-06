@@ -31,6 +31,11 @@
         <div class="form-group">
           <form:input type="email" path="email" placeholder="Email" />
           <form:errors path="email" element="div" cssClass="error"/>
+          <c:if test="${! empty param['error']}">
+            <div class="error">
+              <c:out value="Niepoprawny email lub hasło"></c:out>
+            </div>
+          </c:if>
         </div>
         <div class="form-group">
           <form:input type="password" path="password" placeholder="Hasło" />

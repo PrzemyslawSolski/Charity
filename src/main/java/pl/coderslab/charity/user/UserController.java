@@ -193,4 +193,10 @@ public class UserController {
         return "confirmation";
     }
 
+    @PostMapping("/perform_log")
+    @ResponseBody
+    public String preformLogin(){
+        return "jestem";
+    }
+
 }
